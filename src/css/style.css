@@ -24,12 +24,19 @@ SPACING SYSTEM (px)
 
 ----- 02 COLORS
 
-- Primary: #e67e22
+- Primary:
+-- LIGHT
+#004643
+
+-- DARK
+#091413
 
 - Tints:
-#fdf2e9
-#fae5d3
-#eb984e
+-- LIGHT
+#7FB77E
+
+-- DARK
+#285A48
 
 - Shadows:
 #cf711f
@@ -103,6 +110,12 @@ ul {
 .logo,
 .todo__title {
   cursor: default;
+  width: 100%;
+}
+
+.todo__title label {
+  display: block;
+  width: 100%;
 }
 
 .app {

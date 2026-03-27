@@ -1,0 +1,23 @@
+{
+  "name": "geextask",
+  "version": "1.0.0",
+  "description": "ultimate to do app",
+  "default": "index.html",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrgeex/geextask.git"
+  },
+  "author": "mr geex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrgeex/geextask/issues"
+  },
+  "homepage": "https://github.com/mrgeex/geextask#readme",
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  }
+}
