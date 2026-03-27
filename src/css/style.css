@@ -1,0 +1,170 @@
+/*
+----- 01 TYPOGRAPHY SYSTEM
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+Font Weights:
+Default: 400
+Medium: 500
+Semi-bold: 600
+Bold: 700
+
+
+Line heights:
+Default: 1
+Small: 1.05
+Medium: 1.2
+Large: 1.8
+
+P: 1.6
+
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+----- 02 COLORS
+
+- Primary: #e67e22
+
+- Tints:
+#fdf2e9
+#fae5d3
+#eb984e
+
+- Shadows:
+#cf711f
+
+- Accents:
+- Grays:
+#888
+#767676 with background of #fff
+#6f6f6f with the background of #fdf2e9
+#555
+#333
+
+----- 03 SHADOWS
+
+0 2.4rem 4.8rem rgba(0, 0, 0, 0.075)
+
+----- 04 BORDER-RADIUS
+Default: 10px
+
+----- 05 WHITE-SPACE
+
+
+
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #b0e4cc;
+}
+
+body {
+  background: #091413;
+}
+
+ul {
+  list-style: none;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: grid;
+  gap: 24px;
+  grid-template-rows: 1fr 75vh 1fr;
+  margin: 0 auto;
+  padding: 24px 0;
+  width: 80vw;
+  height: 100vh;
+}
+
+.hidden {
+  display: none;
+}
+
+.header {
+  align-self: flex-start;
+}
+
+.logo {
+  font:
+    44px "Rubik",
+    serif;
+}
+
+.logo,
+.todo__title {
+  cursor: default;
+}
+
+.app {
+  gap: 64px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.todo {
+  background: #001e1d;
+  border: 1px solid #408a71;
+  /*box-shadow:*/
+  /*  2px 2px 2px #408a71,*/
+  /*  -2px -2px 2px #408a71;*/
+  border-radius: 10px;
+
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 32.5%;
+  height: 100%;
+  padding: 24px 32px;
+}
+
+.todo input[type="text"] {
+  background: inherit;
+  border: 1px solid #285a48;
+  border-radius: 10px;
+
+  padding: 12px;
+  width: 100%;
+}
+
+.todo__inbox {
+}
+
+.todo__routines {
+}
+
+.todo__goals {
+}
+
+.nav {
+  border: 1px solid #285a48;
+  width: max-content;
+  margin: 0 auto;
+  padding: 0 32px;
+
+  border-radius: 50px;
+}
+
+.nav ul {
+  gap: 12px;
+}
+
+.todo ul {
+  overflow-y: auto;
+  width: 100%;
+}
+
+.nav ul a {
+  text-decoration: none;
+  color: inherit;
+}
