@@ -26,10 +26,16 @@ SPACING SYSTEM (px)
 
 - Primary:
 -- LIGHT
-#004643
+#004643 or #2F6B3F
+#7FB77E
+#F7C85C
+FFF6C0
 
 -- DARK
 #091413
+#285A48
+#408A71
+#B0E4CC
 
 - Tints:
 -- LIGHT
@@ -172,9 +178,9 @@ ul {
   gap: 12px;
 }
 
-.todo ul {
-  overflow-y: auto;
+.tasks {
   width: 100%;
+  overflow-y: auto;
 }
 
 .nav ul a {

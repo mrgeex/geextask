@@ -1,37 +1,44 @@
 class Tasks {
   errorMessage;
-  _parentElement = document.querySelector(".todo__inbox");
+  _parentElements = document.querySelectorAll(".todo");
 
-  render(data) {
-    const tasksElement = (this._parentElement.closest(".tasks").innerHTML = "");
-    const markup = this._generateMarkup(data);
+  render(data, taskType) {
+    const parent = Array.from(this._parentElements).find((el) =>
+      el.classList.contains(taskType),
+    );
+    const tasksElement = parent.querySelector(".tasks");
+    tasksElement.innerHTML = "";
+    const markup = this._generateMarkup(data[taskType]);
     tasksElement.insertAdjacentHTML("afterbegin", markup);
   }
 
-  getTask() {
-    return this._parentElement.closest("input");
-  }
-
   addTaskHandler(handler) {
-    this._parentElement.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        const input = event.target.closest("#todo__inbox");
-        if (!input) return;
+    this._parentElements.forEach((parentElement) => {
+      parentElement.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          const input = event.target.closest("input[type=text]");
+          if (!input) return;
 
-        const task = input.value;
-        if (!task) return;
-        handler(task);
-      }
+          const taskType = parentElement.classList[0];
+          const task = input.value;
+          if (!task) return;
+          handler(task, taskType);
+        }
+      });
     });
   }
 
-  _generateMarkup() {
+  _generateMarkup(tasks) {
     return `
     <ul>
-      <li>
-        <input type="checkbox" id="one" />
-        <label for="one">one</label>
-      </li>
+      ${tasks
+        .map((task, index) => {
+          return `<li>
+          <input type="checkbox" id="${index}" />
+          <label for="${index}">${task}</label>
+        </li>`;
+        })
+        .join("")}
     </ul>
     `;
   }

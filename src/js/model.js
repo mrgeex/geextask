@@ -1,9 +1,13 @@
 export const state = {
-  tasks: [],
+  tasks: {
+    todo__inbox: [],
+    todo__routines: [],
+    todo__goals: [],
+  },
 };
 
-export function saveTask(task) {
-  state.tasks.push(task);
+export function saveTask(task, taskType) {
+  if (!state.tasks[taskType].includes(task)) state.tasks[taskType].push(task);
 }
 
 export function getTasks() {

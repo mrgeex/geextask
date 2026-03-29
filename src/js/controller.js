@@ -1,9 +1,10 @@
 import tasks from "./views/tasks/tasks";
 import * as model from "./model";
 
-function controlTasks(task) {
-  model.saveTask(task);
-  tasks.render(model.state.tasks);
+function controlTasks(task, taskType) {
+  //
+  model.saveTask(task, taskType);
+  tasks.render(model.getTasks(), taskType);
 }
 
 function init() {
