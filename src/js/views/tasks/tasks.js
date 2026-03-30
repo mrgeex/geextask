@@ -3,13 +3,20 @@ class Tasks {
   _parentElements = document.querySelectorAll(".todo");
 
   render(data, taskType) {
+    const taskTypes = Object.keys(data);
     const parent = Array.from(this._parentElements).find((el) =>
       el.classList.contains(taskType),
     );
-    const tasksElement = parent.querySelector(".tasks");
-    tasksElement.innerHTML = "";
-    const markup = this._generateMarkup(data[taskType]);
-    tasksElement.insertAdjacentHTML("afterbegin", markup);
+
+    taskTypes.forEach((type) => {
+      if (parent.classList.contains(type)) {
+        const tasksElement = parent.querySelector(".tasks");
+        tasksElement.innerHTML = "";
+
+        const markup = this._generateMarkup(data[type]);
+        tasksElement.insertAdjacentHTML("afterbegin", markup);
+      }
+    });
   }
 
   addTaskHandler(handler) {
@@ -20,9 +27,11 @@ class Tasks {
           if (!input) return;
 
           const taskType = parentElement.classList[0];
-          const task = input.value;
+          const task = input.value.trim();
           if (!task) return;
+
           handler(task, taskType);
+          input.value = "";
         }
       });
     });

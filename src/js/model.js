@@ -7,9 +7,22 @@ export const state = {
 };
 
 export function saveTask(task, taskType) {
-  if (!state.tasks[taskType].includes(task)) state.tasks[taskType].push(task);
+  if (!state.tasks[taskType].includes(task)) {
+    state.tasks[taskType].push(task);
+    syncTasks();
+  }
+}
+
+function syncTasks() {
+  localStorage.setItem("tasks", JSON.stringify(state.tasks));
 }
 
 export function getTasks() {
   return state.tasks;
 }
+
+function init() {
+  const storage = localStorage.getItem("tasks");
+  if (storage) state.tasks = JSON.parse(storage);
+}
+init();

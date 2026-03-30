@@ -1,13 +1,13 @@
-import tasks from "./views/tasks/tasks";
+import Tasks from "./views/tasks/tasks";
 import * as model from "./model";
 
-function controlTasks(task, taskType) {
+function controlAddTasks(task, taskType) {
   //
   model.saveTask(task, taskType);
-  tasks.render(model.getTasks(), taskType);
+  Tasks.render(model.getTasks(), taskType);
 }
 
 function init() {
-  tasks.addTaskHandler(controlTasks);
+  Tasks.addTaskHandler(controlAddTasks);
 }
 init();
