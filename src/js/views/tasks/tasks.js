@@ -1,43 +1,77 @@
-class Tasks {
-  errorMessage;
-  _parentElements = document.querySelectorAll(".todo");
+import View from "../view";
 
-  render(data, taskType) {
-    const taskTypes = Object.keys(data);
-    const parent = Array.from(this._parentElements).find((el) =>
+class Tasks extends View {
+  renderNewTask(data, taskType) {
+    const parentElements = document.querySelectorAll(".todo");
+    const parent = Array.from(parentElements).find((el) =>
       el.classList.contains(taskType),
     );
+    const tasksElement = parent.querySelector(".tasks");
 
-    taskTypes.forEach((type) => {
-      if (parent.classList.contains(type)) {
-        const tasksElement = parent.querySelector(".tasks");
-        tasksElement.innerHTML = "";
+    const markup = this._generateTasksMarkup(data[taskType]);
+    tasksElement.innerHTML = "";
+    tasksElement.insertAdjacentHTML("afterbegin", markup);
+  }
 
-        const markup = this._generateMarkup(data[type]);
-        tasksElement.insertAdjacentHTML("afterbegin", markup);
+  addTaskHandler(handler) {
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        const input = event.target.closest("input[type=text]");
+        if (!input) return;
+
+        const parentElement = input.closest(".todo");
+        const taskType = parentElement.classList[0];
+        const task = input.value.trim();
+        if (!task) return;
+
+        handler(task, taskType);
+        input.value = "";
       }
     });
   }
 
-  addTaskHandler(handler) {
-    this._parentElements.forEach((parentElement) => {
-      parentElement.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-          const input = event.target.closest("input[type=text]");
-          if (!input) return;
-
-          const taskType = parentElement.classList[0];
-          const task = input.value.trim();
-          if (!task) return;
-
-          handler(task, taskType);
-          input.value = "";
-        }
-      });
-    });
+  _generateMarkup(data) {
+    return `
+        <div class="todo__inbox todo flex">
+          <h2 class="todo__title">
+            <label for="todo__inbox" class="todo__label">Inbox</label>
+          </h2>
+          <input
+            type="text"
+            name="todo__inbox"
+            id="todo__inbox"
+            placeholder="What's on your mind..."
+          />
+          <div class="tasks">${this._generateTasksMarkup(data["todo__inbox"])}</div>
+        </div>
+        <div class="todo__routines todo flex">
+          <h2 class="todo__title">
+            <label for="todo__routines" class="todo__label">Routines</label>
+          </h2>
+          <input
+            type="text"
+            name="todo__routines"
+            id="todo__routines"
+            placeholder="What's on your mind..."
+          />
+          <div class="tasks">${this._generateTasksMarkup(data["todo__routines"])}</div>
+        </div>
+        <div class="todo__goals todo flex">
+          <h2 class="todo__title">
+            <label for="todo__goals" class="todo__label">Goals</label>
+          </h2>
+          <input
+            type="text"
+            name="todo__goals"
+            id="todo__goals"
+            placeholder="What's on your mind..."
+          />
+          <div class="tasks">${this._generateTasksMarkup(data["todo__goals"])}</div>
+        </div>
+    `;
   }
 
-  _generateMarkup(tasks) {
+  _generateTasksMarkup(tasks) {
     return `
     <ul>
       ${tasks

@@ -4,6 +4,7 @@ export const state = {
     todo__routines: [],
     todo__goals: [],
   },
+  page: "tasks",
 };
 
 export function saveTask(task, taskType) {
