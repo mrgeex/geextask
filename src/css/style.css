@@ -206,6 +206,10 @@ ul {
   fill: var(--text);
 }
 
+.todo__task--btn svg:hover {
+  cursor: pointer;
+}
+
 .nav ul a {
   text-decoration: none;
   color: inherit;

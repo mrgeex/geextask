@@ -4,7 +4,6 @@ export const state = {
     todo__routines: [],
     todo__goals: [],
   },
-  newTasks: [],
   page: "tasks",
 };
 
@@ -29,11 +28,17 @@ function syncTasks() {
 
 export function setTaskDone(taskID) {
   const taskType = taskID.split("__").slice(0, 2).join("__");
-  state.tasks[taskType].find((t) => t.id === taskID).taskDone = true;
+  const task = state.tasks[taskType].find((t) => t.id === taskID);
+  task.taskDone = !task.taskDone;
   syncTasks();
 }
 
-export function deleteTask(taskID) {}
+export function deleteTask(taskID) {
+  const taskType = taskID.split("__").slice(0, 2).join("__");
+  const task = state.tasks[taskType].findIndex((t) => t.id === taskID);
+  state.tasks[taskType].splice(task, 1);
+  syncTasks();
+}
 
 function init() {
   const storage = localStorage.getItem("tasks");

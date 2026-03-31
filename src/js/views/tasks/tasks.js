@@ -53,7 +53,7 @@ class Tasks extends View {
     });
   }
 
-  _generateMarkup(data) {
+  _generateMarkup() {
     return `
         <div class="todo__inbox todo flex">
           <h2 class="todo__title">
@@ -65,7 +65,7 @@ class Tasks extends View {
             id="todo__inbox"
             placeholder="What's on your mind..."
           />
-          <div class="tasks">${this._generateTasksMarkup(data["todo__inbox"])}</div>
+          <div class="tasks">${this._generateTasksMarkup(this._data["todo__inbox"])}</div>
         </div>
         <div class="todo__routines todo flex">
           <h2 class="todo__title">
@@ -77,7 +77,7 @@ class Tasks extends View {
             id="todo__routines"
             placeholder="What's on your mind..."
           />
-          <div class="tasks">${this._generateTasksMarkup(data["todo__routines"])}</div>
+          <div class="tasks">${this._generateTasksMarkup(this._data["todo__routines"])}</div>
         </div>
         <div class="todo__goals todo flex">
           <h2 class="todo__title">
@@ -89,7 +89,7 @@ class Tasks extends View {
             id="todo__goals"
             placeholder="What's on your mind..."
           />
-          <div class="tasks">${this._generateTasksMarkup(data["todo__goals"])}</div>
+          <div class="tasks">${this._generateTasksMarkup(this._data["todo__goals"])}</div>
         </div>
     `;
   }
