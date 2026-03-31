@@ -67,16 +67,22 @@ Default: 10px
 
 
 */
+:root {
+  --primary: #091413;
+  --secondary: #001e1d;
+  --text: #b0e4cc;
+  --border: #285a48;
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: #b0e4cc;
+  color: var(--text);
 }
 
 body {
-  background: #091413;
+  background: var(--primary);
 }
 
 ul {
@@ -131,8 +137,8 @@ ul {
 }
 
 .todo {
-  background: #001e1d;
-  border: 1px solid #408a71;
+  background: var(--secondary);
+  border: 1px solid var(--border);
   /*box-shadow:*/
   /*  2px 2px 2px #408a71,*/
   /*  -2px -2px 2px #408a71;*/
@@ -149,7 +155,7 @@ ul {
 
 .todo input[type="text"] {
   background: inherit;
-  border: 1px solid #285a48;
+  border: 1px solid var(--border);
   border-radius: 10px;
 
   padding: 12px;
@@ -166,7 +172,7 @@ ul {
 }
 
 .nav {
-  border: 1px solid #285a48;
+  border: 1px solid var(--border);
   width: max-content;
   margin: 0 auto;
   padding: 0 32px;
@@ -181,6 +187,23 @@ ul {
 .tasks {
   width: 100%;
   overflow-y: auto;
+}
+
+.todo__task {
+  border: 1px solid var(--border);
+
+  padding: 4px;
+  justify-content: space-between;
+}
+
+.todo__task--done {
+  color: red;
+  text-decoration: line-through;
+}
+
+.todo__task--btn svg {
+  width: 30px;
+  fill: var(--text);
 }
 
 .nav ul a {
