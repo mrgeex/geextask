@@ -27,9 +27,13 @@ function syncTasks() {
   localStorage.setItem("tasks", JSON.stringify(state.tasks));
 }
 
-function setTaskDone(task) {}
+export function setTaskDone(taskID) {
+  const taskType = taskID.split("__").slice(0, 2).join("__");
+  state.tasks[taskType].find((t) => t.id === taskID).taskDone = true;
+  syncTasks();
+}
 
-function deleteTask(id) {}
+export function deleteTask(taskID) {}
 
 function init() {
   const storage = localStorage.getItem("tasks");

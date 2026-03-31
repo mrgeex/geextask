@@ -35,13 +35,21 @@ class Tasks extends View {
     document.addEventListener("click", (event) => {
       const doneBtn = event.target.closest(".todo__task__btn--done");
       const removeBtn = event.target.closest(".todo__task__btn--remove");
-      const task = event.target.closest(".todo__task");
-      const taskStatus = task.querySelector("input");
-      const taskLabel = task.querySelector("label");
 
       if (!doneBtn && !removeBtn) return;
+      const taskParent = event.target.closest(".todo__task");
+      const task = taskParent.querySelector("input");
+      let status;
       // 1 - identify done/remove
+      if (doneBtn) {
+        task.checked = !task.checked;
+        status = "done";
+      }
+      if (removeBtn) {
+        status = "delete";
+      }
       // 2 - call handler for done/remove
+      handler(status, task.id);
     });
   }
 
@@ -93,7 +101,7 @@ class Tasks extends View {
         .map((task) => {
           return `<li class="todo__task flex">
           <div class="todo__task--content">
-            <input type="checkbox" id="${task.id}" />
+            <input type="checkbox" id="${task.id}" ${task.taskDone ? "checked" : ""} />
             <label for="${task.id}">${task.task}</label>
           </div>
           <div class="todo__task--btn flex">

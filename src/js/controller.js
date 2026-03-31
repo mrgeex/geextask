@@ -12,15 +12,15 @@ function controlLoadApp() {
   console.log(model.getTasks());
 }
 
-function controlModifyTask(status, taskIndex, taskType) {
+function controlModifyTask(status, taskID) {
   //
-  // 1 - Set Task as done/remove
-  // 2 - render tasks
+  if (status === "done") model.setTaskDone(taskID);
+  if (status === "delete") model.deleteTask(taskID);
 }
 
 function init() {
   Tasks.loadAppHandler(controlLoadApp);
   Tasks.addTaskHandler(controlAddTasks);
-  // Tasks.modifyTaskHandler(controlModifyTask);
+  Tasks.modifyTaskHandler(controlModifyTask);
 }
 init();

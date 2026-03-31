@@ -196,7 +196,7 @@ ul {
   justify-content: space-between;
 }
 
-.todo__task--done {
+.todo__task input:checked + label {
   color: red;
   text-decoration: line-through;
 }
