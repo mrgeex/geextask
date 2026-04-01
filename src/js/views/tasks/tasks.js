@@ -42,7 +42,7 @@ class Tasks extends View {
       let status;
       // 1 - identify done/remove
       if (doneBtn) {
-        task.checked = !task.checked;
+        task.classList.toggle("task__Done");
         status = "done";
       }
       if (removeBtn) {
@@ -50,6 +50,15 @@ class Tasks extends View {
       }
       // 2 - call handler for done/remove
       handler(status, task.id);
+    });
+  }
+
+  editTaskContentHandler(handler) {
+    document.addEventListener("input", (event) => {
+      const taskContent = event.target.closest(".todo__task--content input");
+      if (!taskContent) return;
+
+      handler("edit", taskContent.id, taskContent.value.trim());
     });
   }
 
@@ -101,8 +110,7 @@ class Tasks extends View {
         .map((task) => {
           return `<li class="todo__task flex">
           <div class="todo__task--content">
-            <input type="checkbox" id="${task.id}" ${task.taskDone ? "checked" : ""} />
-            <label for="${task.id}">${task.task}</label>
+            <input type="text" id="${task.id}" class="${task.taskDone ? "task__Done" : ""}" value="${task.task}"/>
           </div>
           <div class="todo__task--btn flex">
             <svg class="todo__task__btn--done" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm108.25 138.29l-134.4 160a16 16 0 01-12 5.71h-.27a16 16 0 01-11.89-5.3l-57.6-64a16 16 0 1123.78-21.4l45.29 50.32 122.59-145.91a16 16 0 0124.5 20.58z"/></svg>

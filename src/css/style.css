@@ -196,7 +196,15 @@ ul {
   justify-content: space-between;
 }
 
-.todo__task input:checked + label {
+.todo__task--content {
+  width: 100%;
+}
+
+.todo__task--content input {
+  border: none !important;
+}
+
+.task__Done {
   color: red;
   text-decoration: line-through;
 }

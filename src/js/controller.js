@@ -12,12 +12,17 @@ function controlAddTasks(task, taskType) {
   Tasks.renderNewTask(model.getTasks(), taskType);
 }
 
-function controlModifyTask(status, taskID) {
+function controlModifyTask(status, taskID, taskContent) {
   //
   if (status === "done") model.setTaskDone(taskID);
   if (status === "delete") {
     model.deleteTask(taskID);
     Tasks.render(model.getTasks());
+  }
+  if (status === "edit") {
+    taskContent
+      ? model.editTask(taskID, taskContent)
+      : model.deleteTask(taskID);
   }
 }
 
@@ -25,5 +30,6 @@ function init() {
   Tasks.loadAppHandler(controlLoadApp);
   Tasks.addTaskHandler(controlAddTasks);
   Tasks.modifyTaskHandler(controlModifyTask);
+  Tasks.editTaskContentHandler(controlModifyTask);
 }
 init();
