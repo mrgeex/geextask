@@ -3,7 +3,6 @@ import * as model from "./model";
 
 function controlLoadApp() {
   Tasks.render(model.getTasks());
-  console.log(model.getTasks());
 }
 
 function controlAddTasks(task, taskType) {

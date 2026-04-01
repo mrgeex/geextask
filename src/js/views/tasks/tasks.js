@@ -25,6 +25,12 @@ class Tasks extends View {
         const task = input.value.trim();
         if (!task) return;
 
+        if (taskType === "todo__routines") {
+          const routineCycle =
+            event.target.parentElement.querySelector("select").value;
+          console.log(routineCycle);
+        }
+
         handler(task, taskType);
         input.value = "";
       }
@@ -68,36 +74,66 @@ class Tasks extends View {
           <h2 class="todo__title">
             <label for="todo__inbox" class="todo__label">Inbox</label>
           </h2>
-          <input
-            type="text"
-            name="todo__inbox"
-            id="todo__inbox"
-            placeholder="What's on your mind..."
-          />
+          <div class="todo__input">
+            <input
+              type="text"
+              name="todo__inbox"
+              id="todo__inbox"
+              placeholder="What's on your mind..."
+            />
+          </div>  
           <div class="tasks">${this._generateTasksMarkup(this._data["todo__inbox"])}</div>
         </div>
         <div class="todo__routines todo flex">
           <h2 class="todo__title">
             <label for="todo__routines" class="todo__label">Routines</label>
           </h2>
-          <input
-            type="text"
-            name="todo__routines"
-            id="todo__routines"
-            placeholder="What's on your mind..."
-          />
+          <div class="todo__input flex">
+            <input
+              type="text"
+              name="todo__routines"
+              id="todo__routines"
+              placeholder="What's on your mind..."
+            />
+                    
+          <div class="todo__routines__dropdown flex">
+            <div class="selected flex">
+              <span>Repeat Cycle</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </div>
+            <div class="options__list">
+              <div class="option" data-value="daily">Daily</div>
+              <div class="option" data-value="weekly">Weekly</div>
+              <div class="option" data-value="monthly">Monthly</div>
+            </div>
+          </div>
+          </div>
           <div class="tasks">${this._generateTasksMarkup(this._data["todo__routines"])}</div>
         </div>
         <div class="todo__goals todo flex">
           <h2 class="todo__title">
             <label for="todo__goals" class="todo__label">Goals</label>
           </h2>
-          <input
-            type="text"
-            name="todo__goals"
-            id="todo__goals"
-            placeholder="What's on your mind..."
-          />
+          <div class="todo__input">
+            <input
+              type="text"
+              name="todo__goals"
+              id="todo__goals"
+              placeholder="What's on your mind..."
+            />
+          </div>          
           <div class="tasks">${this._generateTasksMarkup(this._data["todo__goals"])}</div>
         </div>
     `;
