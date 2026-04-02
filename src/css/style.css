@@ -169,12 +169,13 @@ ul {
 .todo__routines__dropdown {
   text-align: center;
   width: max-content;
+  min-width: 135px;
   flex-flow: column;
   position: relative;
 }
 
 .todo__routines__dropdown:hover .options__list {
-  opacity: 1;
+  display: block;
 }
 
 .todo__routines__dropdown .selected {
@@ -186,7 +187,7 @@ ul {
   gap: 2px;
 }
 
-.todo__routines__dropdown .selected svg {
+.todo__routines__dropdown svg {
   width: 16px;
 }
 
@@ -195,7 +196,7 @@ ul {
   border: 1px solid var(--border);
   border-radius: 10px;
 
-  opacity: 0;
+  display: none;
   position: absolute;
   top: 100%;
   z-index: 10;
@@ -204,7 +205,6 @@ ul {
 .todo__routines__dropdown .option {
   background: var(--primary);
 
-  width: 100%;
   padding: 8px 16px;
   margin: 0;
 }
@@ -214,8 +214,15 @@ ul {
   color: var(--primary);
 }
 
+.todo__routines__dropdown .option:hover span,
+.todo__routines__dropdown .option:hover svg {
+  color: var(--primary);
+  stroke: var(--primary);
+}
+
 .todo__routines__dropdown .option:first-child {
   border-radius: 10px 10px 0 0;
+  padding: 8px 12px;
 }
 
 .todo__routines__dropdown .option:last-child {
@@ -252,8 +259,9 @@ ul {
 .todo__task {
   border: 1px solid var(--border);
 
-  padding: 4px;
   justify-content: space-between;
+  padding: 4px;
+  gap: 8px;
 }
 
 .todo__task--content {
@@ -262,6 +270,12 @@ ul {
 
 .todo__task--content input {
   border: none !important;
+}
+
+.todo__task .cycle {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2px 6px;
 }
 
 .task__Done {

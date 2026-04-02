@@ -1,13 +1,14 @@
 import Tasks from "./views/tasks/tasks";
 import * as model from "./model";
+import routineRepeatCycle from "./views/tasks/routineRepeatCycle";
 
 function controlLoadApp() {
   Tasks.render(model.getTasks());
 }
 
-function controlAddTasks(task, taskType) {
+function controlAddTasks(task, taskType, routineCycle) {
   //
-  model.saveTask(task, taskType);
+  model.saveTask(task, taskType, routineCycle);
   Tasks.renderNewTask(model.getTasks(), taskType);
 }
 
@@ -30,5 +31,6 @@ function init() {
   Tasks.addTaskHandler(controlAddTasks);
   Tasks.modifyTaskHandler(controlModifyTask);
   Tasks.editTaskContentHandler(controlModifyTask);
+  routineRepeatCycle.cycleHandler();
 }
 init();

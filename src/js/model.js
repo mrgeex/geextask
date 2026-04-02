@@ -7,11 +7,12 @@ export const state = {
   page: "tasks",
 };
 
-export function saveTask(task, taskType) {
+export function saveTask(task, taskType, routineCycle) {
   if (!state.tasks[taskType].some((t) => t.task === task)) {
     const newTask = {
       id: taskType + "__" + state.tasks[taskType].length,
       task,
+      ...(taskType.includes("routine") && { routineCycle: routineCycle }),
     };
     state.tasks[taskType].push(newTask);
     syncTasks();

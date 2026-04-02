@@ -25,13 +25,14 @@ class Tasks extends View {
         const task = input.value.trim();
         if (!task) return;
 
+        let routineCycle;
         if (taskType === "todo__routines") {
-          const routineCycle =
-            event.target.parentElement.querySelector("select").value;
-          console.log(routineCycle);
+          routineCycle =
+            event.target.parentElement.querySelector(".selected span").dataset
+              .value;
         }
 
-        handler(task, taskType);
+        handler(task, taskType, routineCycle);
         input.value = "";
       }
     });
@@ -114,9 +115,9 @@ class Tasks extends View {
               </svg>
             </div>
             <div class="options__list">
-              <div class="option" data-value="daily">Daily</div>
-              <div class="option" data-value="weekly">Weekly</div>
-              <div class="option" data-value="monthly">Monthly</div>
+              <div class="option" data-value="Daily">Daily</div>
+              <div class="option" data-value="Weekly">Weekly</div>
+              <div class="option" data-value="Monthly">Monthly</div>
             </div>
           </div>
           </div>
@@ -148,6 +149,7 @@ class Tasks extends View {
           <div class="todo__task--content">
             <input type="text" id="${task.id}" class="${task.taskDone ? "task__Done" : ""}" value="${task.task}"/>
           </div>
+          ${task.id.split("__").slice(0, 2).join("__").includes("routine") ? `<div class="cycle">${task.routineCycle}</div>` : ""}
           <div class="todo__task--btn flex">
             <svg class="todo__task__btn--done" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm108.25 138.29l-134.4 160a16 16 0 01-12 5.71h-.27a16 16 0 01-11.89-5.3l-57.6-64a16 16 0 1123.78-21.4l45.29 50.32 122.59-145.91a16 16 0 0124.5 20.58z"/></svg>
             <svg class="todo__task__btn--remove" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm75.31 260.69a16 16 0 11-22.62 22.62L256 278.63l-52.69 52.68a16 16 0 01-22.62-22.62L233.37 256l-52.68-52.69a16 16 0 0122.62-22.62L256 233.37l52.69-52.68a16 16 0 0122.62 22.62L278.63 256z"/></svg>
