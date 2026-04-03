@@ -1,42 +1,7 @@
 import View from "../view";
 
-class Tasks extends View {
+export class Tasks extends View {
   //
-  renderNewTask(data, taskType) {
-    const parentElements = document.querySelectorAll(".todo");
-    const parent = Array.from(parentElements).find((el) =>
-      el.classList.contains(taskType),
-    );
-    const tasksElement = parent.querySelector(".tasks");
-
-    const markup = this._generateTasksMarkup(data[taskType]);
-    tasksElement.innerHTML = "";
-    tasksElement.insertAdjacentHTML("afterbegin", markup);
-  }
-
-  addTaskHandler(handler) {
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        const input = event.target.closest("input[type=text]");
-        if (!input) return;
-
-        const parentElement = input.closest(".todo");
-        const taskType = parentElement.classList[0];
-        const task = input.value.trim();
-        if (!task) return;
-
-        let routineCycle;
-        if (taskType === "todo__routines") {
-          routineCycle =
-            event.target.parentElement.querySelector(".selected span").dataset
-              .value;
-        }
-
-        handler(task, taskType, routineCycle);
-        input.value = "";
-      }
-    });
-  }
 
   modifyTaskHandler(handler) {
     document.addEventListener("click", (event) => {
