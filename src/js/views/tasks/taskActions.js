@@ -29,7 +29,28 @@ class TaskActions extends Tasks {
       const taskContent = event.target.closest(".todo__task--content input");
       if (!taskContent) return;
 
-      handler("edit", taskContent.id, taskContent.value.trim());
+      handler("editContent", taskContent.id, taskContent.value.trim());
+    });
+  }
+
+  editRoutineCycleHandler(handler) {
+    document.addEventListener("click", (event) => {
+      const dropDown = event.target.closest(".todo__routines__dropdown");
+      if (!dropDown) return;
+
+      const parentElement = event.target.closest(".todo__task");
+      const taskType =
+        parentElement.parentElement.parentElement.parentElement.classList[0];
+      const input = parentElement.querySelector("input");
+      const task = input.value.trim();
+      if (!task) return;
+
+      let routineCycle;
+      if (taskType === "todo__routines") {
+        routineCycle = dropDown.querySelector(".selected span").dataset.value;
+      }
+
+      handler("editRoutineCycle", input.id, task, routineCycle);
     });
   }
 }

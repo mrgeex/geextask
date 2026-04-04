@@ -15,18 +15,20 @@ function controlAddTasks(task, taskType, routineCycle) {
   addNewTask.renderNewTask(model.getTasks(), taskType);
 }
 
-function controlModifyTask(status, taskID, taskContent) {
+function controlModifyTask(status, taskID, taskContent, routineCycle) {
   //
   if (status === "done") model.setTaskDone(taskID);
   if (status === "delete") {
     model.deleteTask(taskID);
     Tasks.render(model.getTasks());
   }
-  if (status === "edit") {
+  if (status === "editContent")
     taskContent
       ? model.editTask(taskID, taskContent)
       : model.deleteTask(taskID);
-  }
+
+  if (status === "editRoutineCycle")
+    model.editTask(taskID, taskContent, routineCycle);
 }
 
 function init() {
@@ -35,5 +37,6 @@ function init() {
   taskActions.modifyTaskHandler(controlModifyTask);
   taskActions.editTaskContentHandler(controlModifyTask);
   routineRepeatCycle.cycleHandler();
+  taskActions.editRoutineCycleHandler(controlModifyTask);
 }
 init();

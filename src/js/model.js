@@ -45,9 +45,11 @@ export function deleteTask(taskID) {
   syncTasks();
 }
 
-export function editTask(taskID, taskContent) {
+export function editTask(taskID, taskContent, routineCycle) {
   const taskType = getTaskType(taskID);
-  state.tasks[taskType].find((t) => t.id === taskID).task = taskContent;
+  const task = state.tasks[taskType].find((t) => t.id === taskID);
+  task.task = taskContent;
+  if (routineCycle) task.routineCycle = routineCycle;
   syncTasks();
 }
 
