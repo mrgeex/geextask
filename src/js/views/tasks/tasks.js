@@ -78,11 +78,20 @@ export class Tasks extends View {
     <ul>
       ${tasks
         .map((task) => {
-          return `<li class="todo__task flex">
+          const formattedDate = new Date(task.date).toLocaleDateString(
+            navigator.language,
+            {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            },
+          );
+
+          return `<li class="todo__task flex" title="${formattedDate}">
           <div class="todo__task--content">
             <input type="text" id="${task.id}" class="${task.taskDone ? "task__Done" : ""}" value="${task.task}"/>
           </div>
-          <!-- ${task.id.split("__").slice(0, 2).join("__").includes("routine") ? `<div class="cycle">${task.routineCycle}</div>` : ""} -->
           ${
             task.id.split("__").slice(0, 2).join("__").includes("routine")
               ? `<div class="todo__routines__dropdown flex">

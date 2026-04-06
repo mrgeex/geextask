@@ -111,7 +111,7 @@ ul {
 }
 
 .header {
-  align-self: flex-start;
+  justify-content: space-between;
 }
 
 .logo {
@@ -123,7 +123,14 @@ ul {
 .logo,
 .todo__title {
   cursor: default;
-  width: 100%;
+}
+
+.date {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-align: center;
+
+  padding: 8px;
 }
 
 .todo__title label {
@@ -168,8 +175,6 @@ ul {
 
 .todo__routines__dropdown {
   text-align: center;
-  width: max-content;
-  min-width: 135px;
   flex-flow: column;
   position: relative;
 }

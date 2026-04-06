@@ -39,6 +39,7 @@ class TaskActions extends Tasks {
       if (!dropDown) return;
 
       const parentElement = event.target.closest(".todo__task");
+      if (!parentElement) return;
       const taskType =
         parentElement.parentElement.parentElement.parentElement.classList[0];
       const input = parentElement.querySelector("input");

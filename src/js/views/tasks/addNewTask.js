@@ -29,6 +29,7 @@ class addNewTaskHandler extends Tasks {
           routineCycle =
             event.target.parentElement.querySelector(".selected span").dataset
               .value;
+          if (!routineCycle) return;
         }
 
         handler(task, taskType, routineCycle);

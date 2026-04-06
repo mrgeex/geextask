@@ -4,6 +4,7 @@ import Tasks from "./views/tasks/tasks";
 import addNewTask from "./views/tasks/addNewTask";
 import routineRepeatCycle from "./views/tasks/routineRepeatCycle";
 import taskActions from "./views/tasks/taskActions";
+import renderDate from "./views/renderDate";
 
 function controlLoadApp() {
   Tasks.render(model.getTasks());
@@ -11,7 +12,7 @@ function controlLoadApp() {
 
 function controlAddTasks(task, taskType, routineCycle) {
   //
-  model.saveTask(task, taskType, routineCycle);
+  model.saveTask(task, taskType, routineCycle, new Date());
   addNewTask.renderNewTask(model.getTasks(), taskType);
 }
 
@@ -32,6 +33,7 @@ function controlModifyTask(status, taskID, taskContent, routineCycle) {
 }
 
 function init() {
+  renderDate.render();
   Tasks.loadAppHandler(controlLoadApp);
   addNewTask.addTaskHandler(controlAddTasks);
   taskActions.modifyTaskHandler(controlModifyTask);
