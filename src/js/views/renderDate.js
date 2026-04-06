@@ -15,7 +15,7 @@ class RenderDate {
   }
 
   _generateMarkup() {
-    return `<div class="date">${this._formattedDate[0]}<br><span>${this._formattedDate.slice(1).join("")}</span></div>`;
+    return `<div class="date" title="Make it count!">${this._formattedDate[0]}<br><span>${this._formattedDate.slice(1).join("")}</span></div>`;
   }
 }
 

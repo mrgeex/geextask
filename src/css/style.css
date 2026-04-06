@@ -155,7 +155,7 @@ ul {
   gap: 12px;
   width: 32.5%;
   height: 100%;
-  padding: 24px 32px;
+  padding: 24px 32px 0;
 }
 
 .todo input[type="text"] {
@@ -171,6 +171,16 @@ ul {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 10px;
+}
+
+.todo__input input {
+  outline: none;
+}
+
+#todo__routines,
+#todo__goals {
+  border-right: 1px solid #285a48;
+  border-radius: 0;
 }
 
 .todo__routines__dropdown {
@@ -241,6 +251,19 @@ ul {
 }
 
 .todo__goals {
+}
+
+#goals__date {
+  background: inherit;
+  color: var(--text);
+  border: none;
+  outline: none;
+
+  padding: 8px 16px;
+}
+
+input[type="date"] {
+  color-scheme: dark;
 }
 
 .nav {
