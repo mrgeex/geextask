@@ -10,9 +10,9 @@ function controlLoadApp() {
   Tasks.render(model.getTasks());
 }
 
-function controlAddTasks(task, taskType, routineCycle) {
+function controlAddTasks(task, taskType, routineCycle, dueDate) {
   //
-  model.saveTask(task, taskType, routineCycle, new Date());
+  model.saveTask(task, taskType, routineCycle, new Date(), dueDate);
   addNewTask.renderNewTask(model.getTasks(), taskType);
 }
 

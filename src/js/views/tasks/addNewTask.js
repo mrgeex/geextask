@@ -32,7 +32,12 @@ class addNewTaskHandler extends Tasks {
           if (!routineCycle) return;
         }
 
-        handler(task, taskType, routineCycle);
+        let dueDate;
+        if (taskType.includes("goal")) {
+          dueDate = new Date(parentElement.querySelector("#goals__date").value);
+        }
+
+        handler(task, taskType, routineCycle, dueDate);
         input.value = "";
       }
     });

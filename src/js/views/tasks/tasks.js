@@ -93,12 +93,44 @@ export class Tasks extends View {
             },
           );
 
+          let dueDate, unit, duration, scheduled;
+          const now = new Date();
+          dueDate = Math.floor(
+            (new Date(task.dueDate) - now) / (1000 * 60 * 60 * 24),
+          );
+          duration = Math.abs(dueDate);
+
+          if (duration > 365) {
+            unit = "Year";
+            duration = Math.abs(Math.floor(dueDate / 365.25));
+          } else if (duration >= 30) {
+            unit = "Month";
+            duration = Math.abs(Math.floor(dueDate / 30.44));
+          } else unit = "Day";
+          if (duration >= 2) unit += "s";
+
+          scheduled = `${duration} ${unit} ${dueDate > 0 ? "Until" : "Ago"}`;
+          if (dueDate === -1) scheduled = `Yesterday`;
+          if (dueDate === 0) scheduled = `Today`;
+          if (dueDate === 1) scheduled = `Tomorrow`;
+
           return `<li class="todo__task flex" title="${formattedDate}">
+          ${
+            task.id.includes("goal")
+              ? `<div class="todo__routines__dropdown flex">
+                  <div class="selected cycle flex">
+                    <span>${scheduled}</span>
+                  </div>
+                </div>
+                `
+              : ""
+          }
           <div class="todo__task--content">
             <input type="text" id="${task.id}" class="${task.taskDone ? "task__Done" : ""}" value="${task.task}"/>
           </div>
+          
           ${
-            task.id.split("__").slice(0, 2).join("__").includes("routine")
+            task.id.includes("routine")
               ? `<div class="todo__routines__dropdown flex">
                   <div class="selected cycle flex">
                     <span>${task.routineCycle}</span>
