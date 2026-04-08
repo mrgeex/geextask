@@ -54,6 +54,32 @@ class TaskActions extends Tasks {
       handler("editRoutineCycle", input.id, task, routineCycle);
     });
   }
+
+  editDueDateGoalsHandler(handler) {
+    let datePicker;
+    document.addEventListener("click", (event) => {
+      const dueDateBtn = event.target.closest(".dueDate");
+      if (!dueDateBtn) return;
+
+      const taskEl = dueDateBtn.parentElement;
+      const task = taskEl.querySelector(".todo__task--content input");
+      datePicker = taskEl.querySelector("#dueDate");
+      datePicker.showPicker();
+      datePicker.addEventListener("change", (event) => {
+        dueDateBtn.querySelector("span").textContent = this.getScheduledString({
+          dueDate: event.target.value,
+        });
+
+        handler(
+          "editGoalDueDate",
+          task.id,
+          task.value,
+          undefined,
+          datePicker.value,
+        );
+      });
+    });
+  }
 }
 
 export default new TaskActions();

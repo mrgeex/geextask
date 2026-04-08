@@ -16,7 +16,7 @@ function controlAddTasks(task, taskType, routineCycle, dueDate) {
   addNewTask.renderNewTask(model.getTasks(), taskType);
 }
 
-function controlModifyTask(status, taskID, taskContent, routineCycle) {
+function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
   //
   if (status === "done") model.setTaskDone(taskID);
   if (status === "delete") {
@@ -30,6 +30,9 @@ function controlModifyTask(status, taskID, taskContent, routineCycle) {
 
   if (status === "editRoutineCycle")
     model.editTask(taskID, taskContent, routineCycle);
+
+  if (status === "editGoalDueDate")
+    model.editTask(taskID, taskContent, undefined, dueDate);
 }
 
 function init() {
@@ -40,5 +43,6 @@ function init() {
   taskActions.editTaskContentHandler(controlModifyTask);
   routineRepeatCycle.cycleHandler();
   taskActions.editRoutineCycleHandler(controlModifyTask);
+  taskActions.editDueDateGoalsHandler(controlModifyTask);
 }
 init();

@@ -2,6 +2,31 @@ import View from "../view";
 
 export class Tasks extends View {
   //
+  getScheduledString(task) {
+    let dueDate, unit, duration, scheduled;
+    const now = new Date();
+    dueDate = Math.floor(
+      (new Date(task.dueDate) - now) / (1000 * 60 * 60 * 24),
+    );
+    duration = Math.abs(dueDate);
+
+    if (duration > 365) {
+      unit = "Year";
+      duration = Math.abs(Math.floor(dueDate / 365.25));
+    } else if (duration >= 30) {
+      unit = "Month";
+      duration = Math.abs(Math.floor(dueDate / 30.44));
+    } else unit = "Day";
+    if (duration >= 2) unit += "s";
+
+    scheduled = `${duration} ${unit} ${dueDate > 0 ? "Until" : "Ago"}`;
+    if (dueDate === -1) scheduled = `Yesterday`;
+    if (dueDate === 0) scheduled = `Today`;
+    if (dueDate === 1) scheduled = `Tomorrow`;
+
+    return scheduled;
+  }
+
   _generateMarkup() {
     return `
         <div class="todo__inbox todo flex">
@@ -71,7 +96,7 @@ export class Tasks extends View {
               id="todo__goals"
               placeholder="What's on your mind..."
             />
-            <input type="date" name="" id="goals__date" />
+            <input type="date" name="goals__date" id="goals__date" />
           </div>          
           <div class="tasks">${this._generateTasksMarkup(this._data["todo__goals"])}</div>
         </div>
@@ -92,35 +117,14 @@ export class Tasks extends View {
               year: "numeric",
             },
           );
-
-          let dueDate, unit, duration, scheduled;
-          const now = new Date();
-          dueDate = Math.floor(
-            (new Date(task.dueDate) - now) / (1000 * 60 * 60 * 24),
-          );
-          duration = Math.abs(dueDate);
-
-          if (duration > 365) {
-            unit = "Year";
-            duration = Math.abs(Math.floor(dueDate / 365.25));
-          } else if (duration >= 30) {
-            unit = "Month";
-            duration = Math.abs(Math.floor(dueDate / 30.44));
-          } else unit = "Day";
-          if (duration >= 2) unit += "s";
-
-          scheduled = `${duration} ${unit} ${dueDate > 0 ? "Until" : "Ago"}`;
-          if (dueDate === -1) scheduled = `Yesterday`;
-          if (dueDate === 0) scheduled = `Today`;
-          if (dueDate === 1) scheduled = `Tomorrow`;
+          const scheduled = this.getScheduledString(task);
 
           return `<li class="todo__task flex" title="${formattedDate}">
           ${
             task.id.includes("goal")
-              ? `<div class="todo__routines__dropdown flex">
-                  <div class="selected cycle flex">
-                    <span>${scheduled}</span>
-                  </div>
+              ? `<div class="dueDate">
+                  <input type="date" name="" id="dueDate" style="visibility: hidden; position: absolute"/>
+                  <span>${scheduled}</span>
                 </div>
                 `
               : ""
