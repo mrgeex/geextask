@@ -25,7 +25,7 @@ class addNewTaskHandler extends Tasks {
         if (!task) return;
 
         let routineCycle;
-        if (taskType === "todo__routines") {
+        if (taskType.includes("routine")) {
           routineCycle =
             event.target.parentElement.querySelector(".selected span").dataset
               .value;
@@ -35,6 +35,7 @@ class addNewTaskHandler extends Tasks {
         let dueDate;
         if (taskType.includes("goal")) {
           dueDate = new Date(parentElement.querySelector("#goals__date").value);
+          if (isNaN(dueDate.getDate())) return;
         }
 
         handler(task, taskType, routineCycle, dueDate);

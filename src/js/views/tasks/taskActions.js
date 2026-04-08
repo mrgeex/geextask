@@ -4,12 +4,13 @@ class TaskActions extends Tasks {
   //
   modifyTaskHandler(handler) {
     document.addEventListener("click", (event) => {
+      // debugger;
       const doneBtn = event.target.closest(".todo__task__btn--done");
       const removeBtn = event.target.closest(".todo__task__btn--remove");
 
       if (!doneBtn && !removeBtn) return;
       const taskParent = event.target.closest(".todo__task");
-      const task = taskParent.querySelector("input");
+      const task = taskParent.querySelector(".todo__task--content input");
       let status;
       // 1 - identify done/remove
       if (doneBtn) {
