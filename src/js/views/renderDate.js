@@ -1,6 +1,8 @@
-class RenderDate {
+import View from "./view";
+
+class RenderDate extends View {
   _parentElement = document.querySelector(".logo");
-  _formattedDate = new Date()
+  _formattedDate = this._now
     .toLocaleDateString(navigator.language, {
       weekday: "long",
       month: "long",

@@ -3,26 +3,28 @@ import View from "../view";
 export class Tasks extends View {
   //
   getScheduledString(task) {
-    let dueDate, unit, duration, scheduled;
-    const now = new Date();
-    dueDate = Math.floor(
-      (new Date(task.dueDate) - now) / (1000 * 60 * 60 * 24),
-    );
-    duration = Math.abs(dueDate);
+    let unit, duration, scheduled;
+    const dueDate = new Date(task.dueDate);
+    const dueDays = dueDate.getDate() - this._now.getDate();
+    const dueMonths = dueDate.getMonth() - this._now.getMonth();
+    const dueYears = dueDate.getFullYear() - this._now.getFullYear();
 
-    if (duration > 365) {
+    if (dueYears) {
       unit = "Year";
-      duration = Math.abs(Math.floor(dueDate / 365.25));
-    } else if (duration >= 30) {
+      duration = dueYears;
+    } else if (dueMonths) {
       unit = "Month";
-      duration = Math.abs(Math.floor(dueDate / 30.44));
-    } else unit = "Day";
-    if (duration >= 2) unit += "s";
+      duration = dueMonths;
+    } else {
+      unit = "Day";
+      duration = dueDays;
+    }
+    if (Math.abs(duration) >= 2) unit += "s";
 
-    scheduled = `${duration} ${unit} ${dueDate > 0 ? "Until" : "Ago"}`;
-    if (dueDate === -1) scheduled = `Yesterday`;
-    if (dueDate === 0) scheduled = `Today`;
-    if (dueDate === 1) scheduled = `Tomorrow`;
+    scheduled = `${Math.abs(duration)} ${unit} ${duration > 0 ? "Until" : "Ago"}`;
+    if (duration === dueDays && duration === -1) scheduled = `Yesterday`;
+    if (duration === dueDays && duration === 0) scheduled = `Today`;
+    if (duration === dueDays && duration === 1) scheduled = `Tomorrow`;
 
     return scheduled;
   }
@@ -120,6 +122,7 @@ export class Tasks extends View {
           const scheduled = this.getScheduledString(task);
 
           return `<li class="todo__task flex" title="${formattedDate}">
+
           ${
             task.id.includes("goal")
               ? `<div class="dueDate">

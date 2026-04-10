@@ -1,6 +1,7 @@
 export default class View {
   _appElement = document.querySelector(".app");
   _data;
+  _now = new Date();
   errorMessage;
 
   render(data) {
