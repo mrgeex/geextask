@@ -3,28 +3,46 @@ import View from "../view";
 export class Tasks extends View {
   //
   getScheduledString(task) {
-    let unit, duration, scheduled;
     const dueDate = new Date(task.dueDate);
-    const dueDays = dueDate.getDate() - this._now.getDate();
-    const dueMonths = dueDate.getMonth() - this._now.getMonth();
-    const dueYears = dueDate.getFullYear() - this._now.getFullYear();
+    if (isNaN(dueDate.getTime())) return;
+    const isFuture = dueDate > this._now;
 
-    if (dueYears) {
+    const start = isFuture ? this._now : dueDate;
+    const end = isFuture ? dueDate : this._now;
+
+    let dueDays = end.getDate() - start.getDate();
+    let dueMonths = end.getMonth() - start.getMonth();
+    let dueYears = end.getFullYear() - start.getFullYear();
+
+    if (dueDays < 0) {
+      --dueMonths;
+      const prevMonth = new Date(end.getFullYear(), end.getMonth(), 0);
+      dueDays += prevMonth.getDate();
+    }
+    console.log(dueDays);
+
+    if (dueMonths < 0) {
+      --dueYears;
+      dueMonths += 12;
+    }
+
+    let unit, duration, scheduled;
+    if (dueYears > 0) {
       unit = "Year";
       duration = dueYears;
-    } else if (dueMonths) {
+    } else if (dueMonths > 0) {
       unit = "Month";
       duration = dueMonths;
     } else {
       unit = "Day";
       duration = dueDays;
     }
-    if (Math.abs(duration) >= 2) unit += "s";
 
-    scheduled = `${Math.abs(duration)} ${unit} ${duration > 0 ? "Until" : "Ago"}`;
-    if (duration === dueDays && duration === -1) scheduled = `Yesterday`;
+    scheduled = `${duration} ${unit}${duration > 1 ? "s" : ""} ${isFuture ? "Until" : "Ago"}`;
     if (duration === dueDays && duration === 0) scheduled = `Today`;
-    if (duration === dueDays && duration === 1) scheduled = `Tomorrow`;
+    if (duration === dueDays && duration === 1) scheduled = `Yesterday`;
+    if (duration === dueDays && duration === 1 && isFuture)
+      scheduled = `Tomorrow`;
 
     return scheduled;
   }
@@ -98,7 +116,7 @@ export class Tasks extends View {
               id="todo__goals"
               placeholder="What's on your mind..."
             />
-            <input type="date" name="goals__date" id="goals__date" />
+            <input type="date" name="goals__date" id="goals__date" title="Due Date" />
           </div>          
           <div class="tasks">${this._generateTasksMarkup(this._data["todo__goals"])}</div>
         </div>
@@ -121,7 +139,7 @@ export class Tasks extends View {
           );
           const scheduled = this.getScheduledString(task);
 
-          return `<li class="todo__task flex" title="${formattedDate}">
+          return `<li class="todo__task flex" title="Created on ${formattedDate}">
 
           ${
             task.id.includes("goal")
