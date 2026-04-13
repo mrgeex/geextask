@@ -182,7 +182,7 @@ ul {
 }
 
 #todo__routines,
-#todo__goals {
+#todo__countdown {
   border-right: 1px solid #285a48;
   border-radius: 0;
 }
@@ -255,10 +255,12 @@ ul {
 .todo__routines {
 }
 
-.todo__goals {
+.todo__countdown .todo__task {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
 }
 
-#goals__date {
+#countdown__date {
   background: inherit;
   color: var(--text);
   border: none;

@@ -1,5 +1,5 @@
 export default class View {
-  _appElement = document.querySelector(".app");
+  _parentElement = document.querySelector(".app");
   _data;
   _now = new Date();
   errorMessage;
@@ -9,8 +9,8 @@ export default class View {
     this._data = data;
 
     const markup = this._generateMarkup();
-    this._appElement.innerHTML = "";
-    this._appElement.insertAdjacentHTML("afterbegin", markup);
+    this._parentElement.innerHTML = "";
+    this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
   loadAppHandler(handler) {

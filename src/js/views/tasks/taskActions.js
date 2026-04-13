@@ -56,7 +56,7 @@ class TaskActions extends Tasks {
     });
   }
 
-  editDueDateGoalsHandler(handler) {
+  editCountdownDueDateHandler(handler) {
     let datePicker;
     document.addEventListener("click", (event) => {
       const dueDateBtn = event.target.closest(".dueDate");
@@ -72,7 +72,7 @@ class TaskActions extends Tasks {
         });
 
         handler(
-          "editGoalDueDate",
+          "editCountdownDueDate",
           task.id,
           task.value,
           undefined,

@@ -2,7 +2,7 @@ export const state = {
   tasks: {
     todo__inbox: [],
     todo__routines: [],
-    todo__goals: [],
+    todo__countdown: [],
   },
   page: "tasks",
 };
@@ -14,7 +14,7 @@ export function saveTask(task, taskType, routineCycle, date, dueDate) {
       task,
       date,
       ...(taskType.includes("routine") && { routineCycle: routineCycle }),
-      ...(taskType.includes("goal") && { dueDate: dueDate }),
+      ...(taskType.includes("countdown") && { dueDate: dueDate }),
     };
     state.tasks[taskType].push(newTask);
     syncTasks();

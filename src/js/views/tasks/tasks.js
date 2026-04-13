@@ -19,7 +19,6 @@ export class Tasks extends View {
       const prevMonth = new Date(end.getFullYear(), end.getMonth(), 0);
       dueDays += prevMonth.getDate();
     }
-    console.log(dueDays);
 
     if (dueMonths < 0) {
       --dueYears;
@@ -104,21 +103,21 @@ export class Tasks extends View {
           </div>
           <div class="tasks">${this._generateTasksMarkup(this._data["todo__routines"])}</div>
         </div>
-        <div class="todo__goals todo flex">
+        <div class="todo__countdown todo flex">
           <h2 class="todo__title">
-            <label for="todo__goals" class="todo__label">Goals</label>
+            <label for="todo__countdown" class="todo__label">Countdown</label>
           </h2>
           <div class="todo__input flex">
             <input
               title="Write it down before it slips your mind!"
               type="text"
-              name="todo__goals"
-              id="todo__goals"
+              name="todo__countdown"
+              id="todo__countdown"
               placeholder="What's on your mind..."
             />
-            <input type="date" name="goals__date" id="goals__date" title="Due Date" />
+            <input type="date" name="countdown__date" id="countdown__date" title="Due Date" />
           </div>          
-          <div class="tasks">${this._generateTasksMarkup(this._data["todo__goals"])}</div>
+          <div class="tasks">${this._generateTasksMarkup(this._data["todo__countdown"])}</div>
         </div>
     `;
   }
@@ -137,15 +136,14 @@ export class Tasks extends View {
               year: "numeric",
             },
           );
-          const scheduled = this.getScheduledString(task);
 
           return `<li class="todo__task flex" title="Created on ${formattedDate}">
 
           ${
-            task.id.includes("goal")
+            task.id.includes("countdown")
               ? `<div class="dueDate">
                   <input type="date" name="" id="dueDate" style="visibility: hidden; position: absolute"/>
-                  <span>${scheduled}</span>
+                  <span>${this.getScheduledString(task)}</span>
                 </div>
                 `
               : ""

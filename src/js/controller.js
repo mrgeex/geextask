@@ -31,7 +31,7 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
   if (status === "editRoutineCycle")
     model.editTask(taskID, taskContent, routineCycle);
 
-  if (status === "editGoalDueDate")
+  if (status === "editCountdownDueDate")
     model.editTask(taskID, taskContent, undefined, dueDate);
 }
 
@@ -43,6 +43,6 @@ function init() {
   taskActions.editTaskContentHandler(controlModifyTask);
   routineRepeatCycle.cycleHandler();
   taskActions.editRoutineCycleHandler(controlModifyTask);
-  taskActions.editDueDateGoalsHandler(controlModifyTask);
+  taskActions.editCountdownDueDateHandler(controlModifyTask);
 }
 init();

@@ -33,8 +33,10 @@ class addNewTaskHandler extends Tasks {
         }
 
         let dueDate;
-        if (taskType.includes("goal")) {
-          dueDate = new Date(parentElement.querySelector("#goals__date").value);
+        if (taskType.includes("countdown")) {
+          dueDate = new Date(
+            parentElement.querySelector("#countdown__date").value,
+          );
           if (isNaN(dueDate.getDate())) return;
         }
 
