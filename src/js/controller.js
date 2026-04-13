@@ -7,12 +7,14 @@ import taskActions from "./views/tasks/taskActions";
 import renderDate from "./views/renderDate";
 
 function controlLoadApp() {
+  model.routineRepeatCycle();
   Tasks.render(model.getTasks());
 }
 
-function controlAddTasks(task, taskType, routineCycle, dueDate) {
+function controlAddTasks(...task) {
   //
-  model.saveTask(task, taskType, routineCycle, new Date(), dueDate);
+  const taskType = task[1];
+  model.saveTask(task);
   addNewTask.renderNewTask(model.getTasks(), taskType);
 }
 
@@ -39,6 +41,7 @@ function init() {
   renderDate.render();
   Tasks.loadAppHandler(controlLoadApp);
   addNewTask.addTaskHandler(controlAddTasks);
+  taskActions._taskHandler();
   taskActions.modifyTaskHandler(controlModifyTask);
   taskActions.editTaskContentHandler(controlModifyTask);
   routineRepeatCycle.cycleHandler();

@@ -2,9 +2,16 @@ import { Tasks } from "./tasks";
 
 class TaskActions extends Tasks {
   //
+  _taskHandler() {
+    document.addEventListener("click", (event) => {
+      this._taskElement = event.target.closest(".todo__task");
+      if (!this._taskElement) return;
+      console.log(this._taskElement);
+    });
+  }
+
   modifyTaskHandler(handler) {
     document.addEventListener("click", (event) => {
-      // debugger;
       const doneBtn = event.target.closest(".todo__task__btn--done");
       const removeBtn = event.target.closest(".todo__task__btn--remove");
 
