@@ -69,16 +69,14 @@ export function editTask(taskID, taskContent, routineCycle, dueDate) {
   const task = state.tasks[taskType].find((t) => t.id === taskID);
   task.task = taskContent;
   if (routineCycle) task.routineCycle = routineCycle;
+  if (routineCycle) task.cycleDate = getNewRoutineCycleDate(routineCycle);
   if (dueDate) task.dueDate = dueDate;
   syncTasks();
 }
 
 function getNowDate() {
   const time = new Date();
-  const now = [time.getFullYear(), time.getMonth(), time.getDate()];
-  const test = [time.getFullYear(), time.getMonth(), time.getDate() + 4];
-
-  return now;
+  return [time.getFullYear(), time.getMonth(), time.getDate()];
 }
 
 export function getNewRoutineCycleDate(routineCycle) {
