@@ -128,7 +128,7 @@ export class Tasks extends View {
     <ul>
       ${tasks
         .map((task) => {
-          const formattedDate = new Date(task.date).toLocaleDateString(
+          const formattedDate = new Date(...task.date).toLocaleDateString(
             navigator.language,
             {
               weekday: "long",

@@ -7,14 +7,14 @@ import taskActions from "./views/tasks/taskActions";
 import renderDate from "./views/renderDate";
 
 function controlLoadApp() {
-  model.routineRepeatCycle();
+  model.resetAllTaskRepeatCycles();
   Tasks.render(model.getTasks());
 }
 
-function controlAddTasks(...task) {
+function controlAddTasks(...taskData) {
   //
-  const taskType = task[1];
-  model.saveTask(task);
+  const taskType = taskData[1];
+  model.saveTask(taskData);
   addNewTask.renderNewTask(model.getTasks(), taskType);
 }
 

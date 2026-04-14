@@ -24,24 +24,12 @@ class addNewTaskHandler extends Tasks {
         const task = input.value.trim();
         if (!task) return;
 
-        let routineCycle,
-          cycleDate = new Date(
-            this._now.getFullYear(),
-            this._now.getMonth(),
-            this._now.getDate(),
-          );
+        let routineCycle;
         if (taskType.includes("routine")) {
           routineCycle =
             event.target.parentElement.querySelector(".selected span").dataset
               .value;
           if (!routineCycle) return;
-
-          if (routineCycle === "Daily")
-            cycleDate = new Date(cycleDate.setDate(cycleDate.getDate() + 1));
-          if (routineCycle === "Weekly")
-            cycleDate = new Date(cycleDate.setDate(cycleDate.getDate() + 7));
-          if (routineCycle === "Monthly")
-            cycleDate = new Date(cycleDate.setDate(cycleDate.getDate() + 30));
         }
 
         let dueDate;
@@ -52,7 +40,7 @@ class addNewTaskHandler extends Tasks {
           if (isNaN(dueDate.getDate())) return;
         }
 
-        handler(task, taskType, routineCycle, this._now, dueDate, cycleDate);
+        handler(task, taskType, routineCycle, dueDate);
         input.value = "";
       }
     });

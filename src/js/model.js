@@ -8,7 +8,7 @@ export const state = {
 };
 
 export function saveTask(taskData) {
-  const [task, taskType, routineCycle, date, dueDate, cycleDate] = taskData;
+  const [task, taskType, routineCycle, dueDate] = taskData;
 
   if (!state.tasks[taskType].some((t) => t.task === task)) {
     const newTask = {
@@ -17,11 +17,14 @@ export function saveTask(taskData) {
         "__" +
         Math.floor(Math.random() * 10000 * state.tasks[taskType].length),
       task,
-      date,
+      date: getNowDate(),
       ...(taskType.includes("routine") && { routineCycle: routineCycle }),
-      ...(taskType.includes("routine") && { cycleDate: cycleDate }),
+      ...(taskType.includes("routine") && {
+        cycleDate: getNewRoutineCycleDate(routineCycle),
+      }),
       ...(taskType.includes("countdown") && { dueDate: dueDate }),
     };
+
     state.tasks[taskType].push(newTask);
     syncTasks();
   }
@@ -43,6 +46,14 @@ export function setTaskDone(taskID) {
   const taskType = getTaskType(taskID);
   const task = state.tasks[taskType].find((t) => t.id === taskID);
   task.taskDone = !task.taskDone;
+
+  if (
+    taskType.includes("routine") &&
+    new Date(...getNowDate()).getTime() ===
+      new Date(...task.cycleDate).getTime()
+  )
+    task.cycleDate = getNewRoutineCycleDate(task.routineCycle);
+
   syncTasks();
 }
 
@@ -62,17 +73,38 @@ export function editTask(taskID, taskContent, routineCycle, dueDate) {
   syncTasks();
 }
 
-export function routineRepeatCycle() {
+function getNowDate() {
   const time = new Date();
-  const now = new Date(time.getFullYear(), time.getMonth(), time.getDate());
+  const now = [time.getFullYear(), time.getMonth(), time.getDate()];
+  const test = [time.getFullYear(), time.getMonth(), time.getDate() + 4];
 
-  state.tasks["todo__routines"].map((task) => {
-    const taskCycleDate = new Date(task.cycleDate);
+  return now;
+}
+
+export function getNewRoutineCycleDate(routineCycle) {
+  //
+  let cycleDate = new Date(...getNowDate());
+  if (routineCycle === "Daily")
+    cycleDate = new Date(cycleDate.setDate(cycleDate.getDate() + 1));
+  if (routineCycle === "Weekly")
+    cycleDate = new Date(cycleDate.setDate(cycleDate.getDate() + 7));
+  if (routineCycle === "Monthly")
+    cycleDate = new Date(cycleDate.setDate(cycleDate.getDate() + 30));
+
+  return [cycleDate.getFullYear(), cycleDate.getMonth(), cycleDate.getDate()];
+}
+
+export function resetAllTaskRepeatCycles() {
+  //
+  state.tasks["todo__routines"].map((taskData) => {
+    const now = new Date(...getNowDate());
+    const taskCycleDate = new Date(...taskData.cycleDate);
+
     if (taskCycleDate.getTime() === now.getTime()) {
-      task.taskDone = false;
+      taskData.taskDone = false;
+      taskData.cycleDate = getNewRoutineCycleDate(taskData.routineCycle);
       syncTasks();
     }
-    console.log(task);
   });
 }
 
