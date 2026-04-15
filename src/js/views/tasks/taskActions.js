@@ -2,34 +2,30 @@ import { Tasks } from "./tasks";
 
 class TaskActions extends Tasks {
   //
-  _taskHandler() {
+  taskActionsHandler(handler) {
     document.addEventListener("click", (event) => {
-      this._taskElement = event.target.closest(".todo__task");
+      const target = event.target;
+      this._taskElement = target.closest(".todo__task");
       if (!this._taskElement) return;
-      console.log(this._taskElement);
+
+      this._taskContent = this._taskElement.querySelector(
+        ".todo__task--content input",
+      );
+
+      const doneBtn = target.closest(".todo__task__btn--done");
+      doneBtn && this._setTaskDoneHandler(handler);
+      const removeBtn = target.closest(".todo__task__btn--remove");
+      removeBtn && this._deleteTaskHandler(handler);
     });
   }
 
-  modifyTaskHandler(handler) {
-    document.addEventListener("click", (event) => {
-      const doneBtn = event.target.closest(".todo__task__btn--done");
-      const removeBtn = event.target.closest(".todo__task__btn--remove");
+  _setTaskDoneHandler(handler) {
+    this._taskContent.classList.toggle("task__Done");
+    handler("done", this._taskContent.id);
+  }
 
-      if (!doneBtn && !removeBtn) return;
-      const taskParent = event.target.closest(".todo__task");
-      const task = taskParent.querySelector(".todo__task--content input");
-      let status;
-      // 1 - identify done/remove
-      if (doneBtn) {
-        task.classList.toggle("task__Done");
-        status = "done";
-      }
-      if (removeBtn) {
-        status = "delete";
-      }
-      // 2 - call handler for done/remove
-      handler(status, task.id);
-    });
+  _deleteTaskHandler(handler) {
+    handler("delete", this._taskContent.id);
   }
 
   editTaskContentHandler(handler) {

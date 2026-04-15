@@ -2,6 +2,7 @@ import View from "../view";
 
 export class Tasks extends View {
   _taskElement;
+  _taskContent;
   //
   getScheduledString(task) {
     const dueDate = new Date(task.dueDate);

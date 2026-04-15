@@ -41,8 +41,7 @@ function init() {
   renderDate.render();
   Tasks.loadAppHandler(controlLoadApp);
   addNewTask.addTaskHandler(controlAddTasks);
-  taskActions._taskHandler();
-  taskActions.modifyTaskHandler(controlModifyTask);
+  taskActions.taskActionsHandler(controlModifyTask);
   taskActions.editTaskContentHandler(controlModifyTask);
   routineRepeatCycle.cycleHandler();
   taskActions.editRoutineCycleHandler(controlModifyTask);
