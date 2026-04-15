@@ -29,33 +29,33 @@ class TaskActions extends Tasks {
   }
 
   editTaskContentHandler(handler) {
-    document.addEventListener("input", (event) => {
-      const taskContent = event.target.closest(".todo__task--content input");
-      if (!taskContent) return;
-
-      handler("editContent", taskContent.id, taskContent.value.trim());
+    document.addEventListener("input", () => {
+      if (this._taskContent)
+        handler(
+          "editContent",
+          this._taskContent.id,
+          this._taskContent.value.trim(),
+        );
     });
   }
 
   editRoutineCycleHandler(handler) {
     document.addEventListener("click", (event) => {
       const dropDown = event.target.closest(".todo__routines__dropdown");
-      if (!dropDown) return;
+      if (!dropDown || !this._taskContent) return;
 
-      const parentElement = event.target.closest(".todo__task");
-      if (!parentElement) return;
-      const taskType =
-        parentElement.parentElement.parentElement.parentElement.classList[0];
-      const input = parentElement.querySelector("input");
-      const task = input.value.trim();
-      if (!task) return;
-
+      const taskType = event.target.closest(".todo").classList[0];
       let routineCycle;
       if (taskType === "todo__routines") {
         routineCycle = dropDown.querySelector(".selected span").dataset.value;
       }
 
-      handler("editRoutineCycle", input.id, task, routineCycle);
+      handler(
+        "editRoutineCycle",
+        this._taskContent.id,
+        this._taskContent.value.trim(),
+        routineCycle,
+      );
     });
   }
 
@@ -65,9 +65,7 @@ class TaskActions extends Tasks {
       const dueDateBtn = event.target.closest(".dueDate");
       if (!dueDateBtn) return;
 
-      const taskEl = dueDateBtn.parentElement;
-      const task = taskEl.querySelector(".todo__task--content input");
-      datePicker = taskEl.querySelector("#dueDate");
+      datePicker = this._taskElement.querySelector("#dueDate");
       datePicker.showPicker();
       datePicker.addEventListener("change", (event) => {
         dueDateBtn.querySelector("span").textContent = this.getScheduledString({
@@ -76,8 +74,8 @@ class TaskActions extends Tasks {
 
         handler(
           "editCountdownDueDate",
-          task.id,
-          task.value,
+          this._taskContent.id,
+          this._taskContent.value,
           undefined,
           datePicker.value,
         );
