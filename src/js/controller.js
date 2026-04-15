@@ -2,7 +2,6 @@ import * as model from "./model";
 
 import Tasks from "./views/tasks/tasks";
 import addNewTask from "./views/tasks/addNewTask";
-import routineRepeatCycle from "./views/tasks/routineRepeatCycle";
 import taskActions from "./views/tasks/taskActions";
 import renderDate from "./views/renderDate";
 
@@ -40,10 +39,10 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
 function init() {
   renderDate.render();
   Tasks.loadAppHandler(controlLoadApp);
-  addNewTask.addTaskHandler(controlAddTasks);
+  addNewTask.addNewTaskHandler(controlAddTasks);
   taskActions.taskActionsHandler(controlModifyTask);
   taskActions.editTaskContentHandler(controlModifyTask);
-  routineRepeatCycle.cycleHandler();
+  taskActions.routineCycleHandler();
   taskActions.editRoutineCycleHandler(controlModifyTask);
   taskActions.editCountdownDueDateHandler(controlModifyTask);
 }

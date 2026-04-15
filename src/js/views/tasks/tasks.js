@@ -151,7 +151,7 @@ export class Tasks extends View {
               : ""
           }
           <div class="todo__task--content">
-            <input type="text" id="${task.id}" class="${task.taskDone ? "task__Done" : ""}" value="${task.task}"/>
+            <input type="text" id="${task.id}" ${task.taskDone ? 'class="task__Done"' : ""} value="${task.task}"/>
           </div>
           
           ${
