@@ -19,6 +19,10 @@ class TaskActions extends Tasks {
         removeBtn && this._deleteTaskHandler(handler);
 
         if (eventType === "input") this._editTaskContentHandler(handler);
+
+        const dropDownOption = target.closest(".option");
+        dropDownOption &&
+          this._editRoutineCycleHandler(handler, dropDownOption);
       });
     });
   }
@@ -40,24 +44,19 @@ class TaskActions extends Tasks {
     );
   }
 
-  editRoutineCycleHandler(handler) {
-    document.addEventListener("click", (event) => {
-      const dropDown = event.target.closest(".todo__routines__dropdown");
-      if (!dropDown || !this._taskContent) return;
+  _editRoutineCycleHandler(handler, dropDownOption) {
+    const taskType = this._taskElement.dataset.taskType;
+    let routineCycle;
+    if (taskType.includes("routine")) {
+      routineCycle = dropDownOption.dataset.value;
+    }
 
-      const taskType = event.target.closest(".todo").classList[0];
-      let routineCycle;
-      if (taskType === "todo__routines") {
-        routineCycle = dropDown.querySelector(".selected span").dataset.value;
-      }
-
-      handler(
-        "editRoutineCycle",
-        this._taskContent.id,
-        this._taskContent.value.trim(),
-        routineCycle,
-      );
-    });
+    handler(
+      "editRoutineCycle",
+      this._taskContent.id,
+      this._taskContent.value.trim(),
+      routineCycle,
+    );
   }
 
   routineCycleHandler() {

@@ -42,7 +42,6 @@ function init() {
   addNewTask.addNewTaskHandler(controlAddTasks);
   taskActions.taskActionsHandler(controlModifyTask);
   taskActions.routineCycleHandler();
-  taskActions.editRoutineCycleHandler(controlModifyTask);
   taskActions.editCountdownDueDateHandler(controlModifyTask);
 }
 init();
