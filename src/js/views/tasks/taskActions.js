@@ -29,7 +29,8 @@ class TaskActions extends Tasks {
   }
 
   editTaskContentHandler(handler) {
-    document.addEventListener("input", () => {
+    document.addEventListener("input", (event) => {
+      this._taskContent = event.target.closest(".todo__task--content input");
       if (this._taskContent)
         handler(
           "editContent",
