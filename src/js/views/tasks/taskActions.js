@@ -3,19 +3,23 @@ import { Tasks } from "./tasks";
 class TaskActions extends Tasks {
   //
   taskActionsHandler(handler) {
-    document.addEventListener("click", (event) => {
-      const target = event.target;
-      this._taskElement = target.closest(".todo__task");
-      if (!this._taskElement) return;
+    ["click", "input"].forEach((eventType) => {
+      document.addEventListener(eventType, (event) => {
+        const target = event.target;
+        this._taskElement = target.closest(".todo__task");
+        if (!this._taskElement) return;
 
-      this._taskContent = this._taskElement.querySelector(
-        ".todo__task--content input",
-      );
+        this._taskContent = this._taskElement.querySelector(
+          ".todo__task--content input",
+        );
 
-      const doneBtn = target.closest(".todo__task__btn--done");
-      doneBtn && this._setTaskDoneHandler(handler);
-      const removeBtn = target.closest(".todo__task__btn--remove");
-      removeBtn && this._deleteTaskHandler(handler);
+        const doneBtn = target.closest(".todo__task__btn--done");
+        doneBtn && this._setTaskDoneHandler(handler);
+        const removeBtn = target.closest(".todo__task__btn--remove");
+        removeBtn && this._deleteTaskHandler(handler);
+
+        if (eventType === "input") this._editTaskContentHandler(handler);
+      });
     });
   }
 
@@ -28,16 +32,12 @@ class TaskActions extends Tasks {
     handler("delete", this._taskContent.id);
   }
 
-  editTaskContentHandler(handler) {
-    document.addEventListener("input", (event) => {
-      this._taskContent = event.target.closest(".todo__task--content input");
-      if (this._taskContent)
-        handler(
-          "editContent",
-          this._taskContent.id,
-          this._taskContent.value.trim(),
-        );
-    });
+  _editTaskContentHandler(handler) {
+    handler(
+      "editContent",
+      this._taskContent.id,
+      this._taskContent.value.trim(),
+    );
   }
 
   editRoutineCycleHandler(handler) {
