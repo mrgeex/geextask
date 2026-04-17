@@ -26,16 +26,18 @@ SPACING SYSTEM (px)
 
 - Primary:
 -- LIGHT
-#004643 or #2F6B3F
-#7FB77E
-#F7C85C
-FFF6C0
+  --primary: #f7c85c;
+  --secondary: #fff6c0;
+  --text: #2f6b3f;
+  --border: #004643;
+  --active: #408a71;
 
 -- DARK
-#091413
-#285A48
-#408A71
-#B0E4CC
+  --primary: #091413;
+  --secondary: #001e1d;
+  --text: #b0e4cc;
+  --border: #285a48;
+  --active: #408a71;
 
 - Tints:
 -- LIGHT
@@ -65,13 +67,13 @@ Default: 10px
 ----- 05 WHITE-SPACE
 
 
-
 */
 :root {
   --primary: #091413;
   --secondary: #001e1d;
   --text: #b0e4cc;
   --border: #285a48;
+  --active: #408a71;
 }
 
 input[type="date"] {
@@ -101,9 +103,10 @@ ul {
 }
 
 .container {
-  display: grid;
+  flex-flow: column;
+  justify-content: space-between;
+
   gap: 24px;
-  grid-template-rows: 1fr 75vh 1fr;
   margin: 0 auto;
   padding: 24px 0;
   width: 80vw;
@@ -116,6 +119,7 @@ ul {
 
 .header {
   justify-content: space-between;
+  width: 100%;
 }
 
 .logo {
@@ -146,6 +150,7 @@ ul {
   gap: 64px;
   justify-content: space-between;
   width: 100%;
+  height: 690px;
 }
 
 .todo {
@@ -271,15 +276,31 @@ ul {
 
 .nav {
   border: 1px solid var(--border);
-  width: max-content;
   margin: 0 auto;
-  padding: 0 32px;
 
   border-radius: 50px;
 }
 
-.nav ul {
-  gap: 12px;
+.nav ul a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav ul li {
+  padding: 16px 24px;
+}
+
+.nav ul li:first-child {
+  border-radius: 50px 0 0 50px;
+}
+
+.nav ul li:last-child {
+  border-radius: 0 50px 50px 0;
+}
+
+.active__tab {
+  background: var(--active);
+  color: var(--primary);
 }
 
 .tasks {
@@ -327,9 +348,4 @@ ul {
 
 .todo__task--btn svg:hover {
   cursor: pointer;
-}
-
-.nav ul a {
-  text-decoration: none;
-  color: inherit;
 }
