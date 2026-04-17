@@ -289,11 +289,15 @@ ul {
 }
 
 .todo__task {
-  border: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 
   justify-content: space-between;
   padding: 4px;
   gap: 8px;
+}
+
+.todo__task:last-child {
+  border-bottom: none;
 }
 
 .todo__task--content {
