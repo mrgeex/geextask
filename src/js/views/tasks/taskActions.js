@@ -22,6 +22,9 @@ class TaskActions extends Tasks {
         const dropDownOption = target.closest(".option");
         dropDownOption &&
           this._editRoutineCycleHandler(handler, dropDown, dropDownOption);
+
+        const dueDateBtn = event.target.closest(".dueDateBtn");
+        dueDateBtn && this._editCountdownDueDateHandler(handler);
       });
     });
   }
@@ -64,27 +67,22 @@ class TaskActions extends Tasks {
     );
   }
 
-  editCountdownDueDateHandler(handler) {
-    let datePicker;
-    document.addEventListener("click", (event) => {
-      const dueDateBtn = event.target.closest(".dueDateBtn");
-      if (!dueDateBtn) return;
-
-      datePicker = this._taskElement.querySelector("#dueDate");
-      datePicker.showPicker();
-      datePicker.addEventListener("change", (event) => {
-        dueDateBtn.querySelector("span").textContent = this.getScheduledString({
+  _editCountdownDueDateHandler(handler) {
+    const datePicker = this._taskElement.querySelector("#dueDate");
+    datePicker.showPicker();
+    datePicker.addEventListener("change", (event) => {
+      this._taskElement.querySelector(".dueDateBtn span").textContent =
+        this.getScheduledString({
           dueDate: event.target.value,
         });
 
-        handler(
-          "editCountdownDueDate",
-          this._taskContent.id,
-          this._taskContent.value,
-          undefined,
-          datePicker.value,
-        );
-      });
+      handler(
+        "editCountdownDueDate",
+        this._taskContent.id,
+        this._taskContent.value,
+        undefined,
+        datePicker.value,
+      );
     });
   }
 }
