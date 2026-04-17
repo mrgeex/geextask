@@ -145,7 +145,7 @@ export class Tasks extends View {
 
           ${
             task.id.includes("countdown")
-              ? `<div class="dueDate">
+              ? `<div class="dueDateBtn">
                   <input type="date" name="" id="dueDate" style="visibility: hidden; position: absolute"/>
                   <span>${this.getScheduledString(task)}</span>
                 </div>

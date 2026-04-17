@@ -67,7 +67,7 @@ class TaskActions extends Tasks {
   editCountdownDueDateHandler(handler) {
     let datePicker;
     document.addEventListener("click", (event) => {
-      const dueDateBtn = event.target.closest(".dueDate");
+      const dueDateBtn = event.target.closest(".dueDateBtn");
       if (!dueDateBtn) return;
 
       datePicker = this._taskElement.querySelector("#dueDate");
