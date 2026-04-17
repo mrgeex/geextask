@@ -7,9 +7,7 @@ class TaskActions extends Tasks {
       document.addEventListener(eventType, (event) => {
         const target = event.target;
         this._taskElement = target.closest(".todo__task");
-        if (!this._taskElement) return;
-
-        this._taskContent = this._taskElement.querySelector(
+        this._taskContent = this._taskElement?.querySelector(
           ".todo__task--content input",
         );
 
@@ -20,9 +18,10 @@ class TaskActions extends Tasks {
 
         if (eventType === "input") this._editTaskContentHandler(handler);
 
+        const dropDown = target.closest(".todo__routines__dropdown");
         const dropDownOption = target.closest(".option");
         dropDownOption &&
-          this._editRoutineCycleHandler(handler, dropDownOption);
+          this._editRoutineCycleHandler(handler, dropDown, dropDownOption);
       });
     });
   }
@@ -37,6 +36,7 @@ class TaskActions extends Tasks {
   }
 
   _editTaskContentHandler(handler) {
+    if (!this._taskElement) return;
     handler(
       "editContent",
       this._taskContent.id,
@@ -44,7 +44,12 @@ class TaskActions extends Tasks {
     );
   }
 
-  _editRoutineCycleHandler(handler, dropDownOption) {
+  _editRoutineCycleHandler(handler, dropDown, dropDownOption) {
+    const selected = dropDown.querySelector(".selected span");
+    selected.textContent = dropDownOption.textContent;
+    selected.setAttribute("data-value", dropDownOption.dataset.value);
+
+    if (!this._taskElement) return;
     const taskType = this._taskElement.dataset.taskType;
     let routineCycle;
     if (taskType.includes("routine")) {
@@ -57,21 +62,6 @@ class TaskActions extends Tasks {
       this._taskContent.value.trim(),
       routineCycle,
     );
-  }
-
-  routineCycleHandler() {
-    document.addEventListener("click", (event) => {
-      const dropDown = event.target.closest(".todo__routines__dropdown");
-      if (!dropDown) return;
-
-      const selected = dropDown.querySelector(".selected span");
-      const dropDownOption = event.target.closest(
-        ".todo__routines__dropdown .option",
-      );
-      if (!dropDownOption) return;
-      selected.textContent = dropDownOption.textContent;
-      selected.setAttribute("data-value", dropDownOption.dataset.value);
-    });
   }
 
   editCountdownDueDateHandler(handler) {
