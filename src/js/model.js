@@ -5,7 +5,15 @@ export const state = {
     todo__countdown: [],
   },
   page: "tasks",
+  theme: "",
 };
+
+export function switchTheme(theme) {
+  state.theme = theme;
+  localStorage.setItem("theme", JSON.stringify(theme));
+}
+
+export function getTheme() {}
 
 export function saveTask(taskData) {
   const [task, taskType, routineCycle, dueDate] = taskData;
@@ -107,7 +115,10 @@ export function resetAllTaskRepeatCycles() {
 }
 
 function init() {
-  const storage = localStorage.getItem("tasks");
-  if (storage) state.tasks = JSON.parse(storage);
+  const tasks = localStorage.getItem("tasks");
+  if (tasks) state.tasks = JSON.parse(tasks);
+
+  const theme = localStorage.getItem("theme");
+  if (theme) state.theme = JSON.parse(theme);
 }
 init();

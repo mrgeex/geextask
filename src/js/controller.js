@@ -11,6 +11,8 @@ function toggleTheme(theme) {
 }
 
 function controlLoadApp() {
+  if (model.state.theme === "light") switchTheme.toggleTheme();
+
   model.resetAllTaskRepeatCycles();
   Tasks.render(model.getTasks());
 }
