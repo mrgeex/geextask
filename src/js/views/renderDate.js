@@ -1,7 +1,7 @@
 import View from "./view";
 
 class RenderDate extends View {
-  _parentElement = document.querySelector(".logo");
+  _parentElement = document.querySelector(".info");
   _formattedDate = this._now
     .toLocaleDateString(navigator.language, {
       weekday: "long",
@@ -13,7 +13,7 @@ class RenderDate extends View {
 
   render() {
     const markup = this._generateMarkup();
-    this._parentElement.insertAdjacentHTML("afterend", markup);
+    this._parentElement.insertAdjacentHTML("beforeend", markup);
   }
 
   _generateMarkup() {

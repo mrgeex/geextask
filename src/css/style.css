@@ -139,6 +139,21 @@ ul {
   cursor: default;
 }
 
+header .info {
+  gap: 24px;
+}
+
+header .theme__switch {
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+header .theme__switch svg {
+  width: 24px;
+}
+
 .date {
   border: 1px solid var(--border);
   border-radius: 10px;
