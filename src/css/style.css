@@ -74,10 +74,16 @@ Default: 10px
   --text: #b0e4cc;
   --border: #285a48;
   --active: #408a71;
+  color-scheme: dark;
 }
 
-input[type="date"] {
-  color-scheme: dark;
+.light {
+  --primary: #f7c85c;
+  --secondary: #fff6c0;
+  --text: #2f6b3f;
+  --border: #004643;
+  --active: #408a71;
+  color-scheme: light;
 }
 
 * {
@@ -144,7 +150,7 @@ header .info {
 }
 
 header .theme__switch {
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 50px;
   padding: 8px;
   cursor: pointer;

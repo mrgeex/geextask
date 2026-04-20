@@ -4,6 +4,11 @@ import Tasks from "./views/tasks/tasks";
 import addNewTask from "./views/tasks/addNewTask";
 import taskActions from "./views/tasks/taskActions";
 import renderDate from "./views/renderDate";
+import switchTheme from "./views/switchTheme";
+
+function toggleTheme(theme) {
+  model.switchTheme(theme);
+}
 
 function controlLoadApp() {
   model.resetAllTaskRepeatCycles();
@@ -41,5 +46,6 @@ function init() {
   Tasks.loadAppHandler(controlLoadApp);
   addNewTask.addNewTaskHandler(controlAddTasks);
   taskActions.taskActionsHandler(controlModifyTask);
+  switchTheme.switchThemeHandler(toggleTheme);
 }
 init();
