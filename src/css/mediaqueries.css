@@ -1,0 +1,32 @@
+/* Small phones */
+@media (min-width: 480px) {
+  .todo {
+    flex: 0 0 100%;
+  }
+}
+
+/* Large phones */
+@media (min-width: 640px) {
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+}
+
+/* Small laptops */
+@media (min-width: 1024px) {
+  .todo {
+    flex: 0 0 45%;
+  }
+}
+
+/* Desktops */
+@media (min-width: 1280px) {
+}
+
+/* Large screens */
+@media (min-width: 1536px) {
+  .todo {
+    flex: unset;
+  }
+}

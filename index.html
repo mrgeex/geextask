@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="src/css/fonts.css" />
     <link rel="stylesheet" href="src/css/style.css" />
+    <link rel="stylesheet" href="src/css/mediaqueries.css" />
     <script type="module" src="src/js/controller.js"></script>
     <title>Geex Task</title>
   </head>
@@ -45,6 +46,37 @@
           </div>
         </div>
       </header>
+
+      <div class="tasks__slide--btn flex">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="btn__left"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="btn__right"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+          />
+        </svg>
+      </div>
 
       <main class="app flex">
         <!--        <div class="todo__inbox todo flex">-->
@@ -90,8 +122,8 @@
       <nav class="nav flex">
         <ul class="flex">
           <li class="active__tab"><a href="#tasks">Tasks</a></li>
-          <li><a href="#pomodoro">Pomodoro</a></li>
-          <li><a href="#music">Music</a></li>
+          <li><a href="#pomodoro" title="SOON...">Pomodoro</a></li>
+          <li><a href="#music" title="SOON...">Music</a></li>
         </ul>
       </nav>
     </div>
