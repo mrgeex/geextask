@@ -47,78 +47,80 @@
         </div>
       </header>
 
-      <div class="tasks__slide--btn flex">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="btn__left"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-          />
-        </svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="btn__right"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-          />
-        </svg>
-      </div>
+      <div class="app__wrapper">
+        <main class="app flex">
+          <!--        <div class="todo__inbox todo flex">-->
+          <!--          <h2 class="todo__title">-->
+          <!--            <label for="todo__inbox" class="todo__label">Inbox</label>-->
+          <!--          </h2>-->
+          <!--          <input-->
+          <!--            type="text"-->
+          <!--            name="todo__inbox"-->
+          <!--            id="todo__inbox"-->
+          <!--            placeholder="What's on your mind..."-->
+          <!--          />-->
+          <!--                  <div class="tasks">-->
+          <!--                    <div class="todo__task&#45;&#45;content"></div>-->
+          <!--                    <div class="todo__task&#45;&#45;btn"></div>-->
+          <!--                  </div>-->
+          <!--        </div>-->
+          <!--        <div class="todo__routines todo flex">-->
+          <!--          <h2 class="todo__title">-->
+          <!--            <label for="todo__routines" class="todo__label">Routines</label>-->
+          <!--          </h2>-->
+          <!--          <input-->
+          <!--            type="text"-->
+          <!--            name="todo__routines"-->
+          <!--            id="todo__routines"-->
+          <!--            placeholder="What's on your mind..."-->
+          <!--          />-->
+          <!--          <div class="tasks"></div>-->
+          <!--        </div>-->
+          <!--        <div class="todo__goals todo flex">-->
+          <!--          <h2 class="todo__title">-->
+          <!--            <label for="todo__goals" class="todo__label">Goals</label>-->
+          <!--          </h2>-->
+          <!--          <input-->
+          <!--            type="text"-->
+          <!--            name="todo__goals"-->
+          <!--            id="todo__goals"-->
+          <!--            placeholder="What's on your mind..."-->
+          <!--          />-->
+          <!--          <div class="tasks"></div>-->
+          <!--        </div>-->
+        </main>
 
-      <main class="app flex">
-        <!--        <div class="todo__inbox todo flex">-->
-        <!--          <h2 class="todo__title">-->
-        <!--            <label for="todo__inbox" class="todo__label">Inbox</label>-->
-        <!--          </h2>-->
-        <!--          <input-->
-        <!--            type="text"-->
-        <!--            name="todo__inbox"-->
-        <!--            id="todo__inbox"-->
-        <!--            placeholder="What's on your mind..."-->
-        <!--          />-->
-        <!--                  <div class="tasks">-->
-        <!--                    <div class="todo__task&#45;&#45;content"></div>-->
-        <!--                    <div class="todo__task&#45;&#45;btn"></div>-->
-        <!--                  </div>-->
-        <!--        </div>-->
-        <!--        <div class="todo__routines todo flex">-->
-        <!--          <h2 class="todo__title">-->
-        <!--            <label for="todo__routines" class="todo__label">Routines</label>-->
-        <!--          </h2>-->
-        <!--          <input-->
-        <!--            type="text"-->
-        <!--            name="todo__routines"-->
-        <!--            id="todo__routines"-->
-        <!--            placeholder="What's on your mind..."-->
-        <!--          />-->
-        <!--          <div class="tasks"></div>-->
-        <!--        </div>-->
-        <!--        <div class="todo__goals todo flex">-->
-        <!--          <h2 class="todo__title">-->
-        <!--            <label for="todo__goals" class="todo__label">Goals</label>-->
-        <!--          </h2>-->
-        <!--          <input-->
-        <!--            type="text"-->
-        <!--            name="todo__goals"-->
-        <!--            id="todo__goals"-->
-        <!--            placeholder="What's on your mind..."-->
-        <!--          />-->
-        <!--          <div class="tasks"></div>-->
-        <!--        </div>-->
-      </main>
+        <div class="tasks__slide--btn flex hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="btn__left"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="btn__right"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+            />
+          </svg>
+        </div>
+      </div>
       <nav class="nav flex">
         <ul class="flex">
           <li class="active__tab"><a href="#tasks">Tasks</a></li>

@@ -5,6 +5,7 @@ import addNewTask from "./views/tasks/addNewTask";
 import taskActions from "./views/tasks/taskActions";
 import renderDate from "./views/renderDate";
 import switchTheme from "./views/switchTheme";
+import taskSlider from "./views/tasks/taskSlider";
 
 function toggleTheme(theme) {
   model.switchTheme(theme);
@@ -49,5 +50,7 @@ function init() {
   addNewTask.addNewTaskHandler(controlAddTasks);
   taskActions.taskActionsHandler(controlModifyTask);
   switchTheme.switchThemeHandler(toggleTheme);
+  taskSlider.init();
+  taskSlider.sliderButtonsHandler();
 }
 init();
