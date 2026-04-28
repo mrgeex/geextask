@@ -1,5 +1,9 @@
 /* Desktops */
 @media (max-width: 1280px) {
+  .logo {
+    font-size: 36px;
+  }
+
   .tasks__slide--btn {
     display: block;
   }
@@ -37,6 +41,7 @@
   .todo {
     position: absolute;
     width: 45%;
+    height: 100%;
   }
 }
 
@@ -46,6 +51,14 @@
 
 /* Tablets */
 @media (max-width: 768px) {
+  header .info {
+    gap: 16px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
   .app {
     gap: 0;
   }
@@ -57,15 +70,32 @@
 
 /* Phones */
 @media (max-width: 480px) {
+  .container {
+    width: 90vw;
+  }
+
   .logo {
-    font-size: 24px;
+    font-size: 30px;
   }
 
   .date {
     font-size: 14px;
   }
+
+  .btn__left {
+    top: 0 !important;
+    left: 40% !important;
+  }
+
+  .btn__right {
+    top: 0 !important;
+    right: 40% !important;
+  }
 }
 
 /* Small phones */
-@media (max-width: 320px) {
+@media (max-width: 410px) {
+  .logo {
+    font-size: 24px;
+  }
 }
