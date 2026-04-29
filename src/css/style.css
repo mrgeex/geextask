@@ -26,11 +26,11 @@ SPACING SYSTEM (px)
 
 - Primary:
 -- LIGHT
-  --primary: #f7c85c;
-  --secondary: #fff6c0;
-  --text: #2f6b3f;
-  --border: #004643;
-  --active: #408a71;
+  --primary: #f4fce3;
+  --secondary: #d3f9d8;
+  --text: #285a48;
+  --border: #74b816;
+  --active: #5c940d;
 
 -- DARK
   --primary: #091413;
@@ -78,11 +78,11 @@ Default: 10px
 }
 
 .light {
-  --primary: #f7c85c;
-  --secondary: #fff6c0;
-  --text: #2f6b3f;
-  --border: #004643;
-  --active: #408a71;
+  --primary: #f4fce3;
+  --secondary: #d3f9d8;
+  --text: #285a48;
+  --border: #74b816;
+  --active: #5c940d;
   color-scheme: light;
 }
 
@@ -242,7 +242,7 @@ header .theme__switch svg {
 
 #todo__routines,
 #todo__countdown {
-  border-right: 1px solid #285a48;
+  border-right: 1px solid var(--border);
   border-radius: 0;
 }
 
