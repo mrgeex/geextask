@@ -97,6 +97,8 @@ Default: 10px
 body {
   background: var(--primary);
   font-family: "Zain", sans-serif;
+
+  min-width: 320px;
 }
 
 input {

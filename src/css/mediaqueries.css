@@ -1,4 +1,34 @@
 /* Desktops */
+@media (max-width: 1728px) {
+  .container {
+    width: 90vw;
+  }
+}
+
+@media (max-width: 1536px) {
+  .app {
+    gap: 48px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .todo__input {
+    display: grid;
+    justify-content: stretch;
+    padding: 0 16px;
+  }
+
+  #todo__routines,
+  #todo__countdown {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #countdown__date {
+    justify-self: center;
+  }
+}
+
 @media (max-width: 1280px) {
   .logo {
     font-size: 36px;
@@ -43,14 +73,51 @@
     width: 45%;
     height: 100%;
   }
+
+  .todo__input {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+
+  #todo__routines,
+  #todo__countdown {
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+  }
 }
 
 /* Small laptops */
 @media (max-width: 1024px) {
+  .app {
+    gap: 32px;
+  }
+
+  .todo {
+    width: 47%;
+  }
+}
+
+@media (max-width: 960px) {
+  .todo__input {
+    display: grid;
+    justify-content: stretch;
+    padding: 0 16px;
+  }
+
+  #todo__routines,
+  #todo__countdown {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
 }
 
 /* Tablets */
 @media (max-width: 768px) {
+  .container {
+    width: 80vw;
+  }
+
   header .info {
     gap: 16px;
   }
@@ -65,6 +132,18 @@
 
   .todo {
     width: 100%;
+  }
+
+  .todo__input {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+
+  #todo__routines,
+  #todo__countdown {
+    border-bottom: none;
+    border-right: 1px solid var(--border);
   }
 }
 
@@ -97,5 +176,17 @@
 @media (max-width: 410px) {
   .logo {
     font-size: 24px;
+  }
+
+  .todo__input {
+    display: grid;
+    justify-content: stretch;
+    padding: 0 16px;
+  }
+
+  #todo__routines,
+  #todo__countdown {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
   }
 }
