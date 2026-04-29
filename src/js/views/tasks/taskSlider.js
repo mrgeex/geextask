@@ -46,7 +46,7 @@ class TaskSlider extends View {
       if (window.innerWidth <= this._phoneBreakPoint)
         taskContainer.style.transform = `translateX(${100 * (index - slideIndex)}%)`;
       else
-        taskContainer.style.transform = `translateX(${100 * (index - slideIndex) + index * 20}%)`;
+        taskContainer.style.transform = `translateX(${100 * (index - slideIndex) + index * 10}%)`;
     });
   }
 
