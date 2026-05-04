@@ -43,10 +43,13 @@ class TaskSlider extends View {
     // console.log("index", slideIndex);
     const taskContainers = document.querySelectorAll(".todo");
     taskContainers.forEach((taskContainer, index) => {
+      const mainTransform = 100 * (index - slideIndex);
+      const gap = index * 10 * Math.sign(mainTransform);
+
       if (window.innerWidth <= this._phoneBreakPoint)
-        taskContainer.style.transform = `translateX(${100 * (index - slideIndex)}%)`;
+        taskContainer.style.transform = `translateX(${mainTransform}%)`;
       else
-        taskContainer.style.transform = `translateX(${100 * (index - slideIndex) + index * 10}%)`;
+        taskContainer.style.transform = `translateX(${mainTransform + gap}%)`;
     });
   }
 
