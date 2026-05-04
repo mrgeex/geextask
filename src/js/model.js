@@ -46,7 +46,7 @@ function syncTasks() {
   localStorage.setItem("tasks", JSON.stringify(state.tasks));
 }
 
-function getTaskType(taskID) {
+export function getTaskType(taskID) {
   return taskID.split("__").slice(0, 2).join("__");
 }
 

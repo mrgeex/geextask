@@ -1,18 +1,6 @@
 import { Tasks } from "./tasks";
 
 class addNewTask extends Tasks {
-  renderNewTask(data, taskType) {
-    const parentElements = document.querySelectorAll(".todo");
-    const parent = Array.from(parentElements).find((el) =>
-      el.classList.contains(taskType),
-    );
-    const tasksElement = parent.querySelector(".tasks");
-
-    const markup = this._generateTasksMarkup(data[taskType]);
-    tasksElement.innerHTML = "";
-    tasksElement.insertAdjacentHTML("afterbegin", markup);
-  }
-
   addNewTaskHandler(handler) {
     document.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {

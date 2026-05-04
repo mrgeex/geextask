@@ -22,7 +22,7 @@ function controlAddTasks(...taskData) {
   //
   const taskType = taskData[1];
   model.saveTask(taskData);
-  addNewTask.renderNewTask(model.getTasks(), taskType);
+  Tasks.UpdateCurrentTasks(model.getTasks(), taskType);
 }
 
 function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
@@ -30,7 +30,7 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
   if (status === "done") model.setTaskDone(taskID);
   if (status === "delete") {
     model.deleteTask(taskID);
-    Tasks.render(model.getTasks());
+    Tasks.UpdateCurrentTasks(model.getTasks(), model.getTaskType(taskID));
   }
   if (status === "editContent")
     taskContent

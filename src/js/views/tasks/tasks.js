@@ -4,6 +4,18 @@ export class Tasks extends View {
   _taskElement;
   _taskContent;
   //
+  UpdateCurrentTasks(data, taskType) {
+    const parentElements = document.querySelectorAll(".todo");
+    const parent = Array.from(parentElements).find((el) =>
+      el.classList.contains(taskType),
+    );
+    const tasksElement = parent.querySelector(".tasks");
+
+    const markup = this._generateTasksMarkup(data[taskType]);
+    tasksElement.innerHTML = "";
+    tasksElement.insertAdjacentHTML("afterbegin", markup);
+  }
+
   getScheduledString(task) {
     const dueDate = new Date(task.dueDate);
     if (isNaN(dueDate.getTime())) return;
