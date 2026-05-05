@@ -1,6 +1,6 @@
 import View from "./view";
 
-class RenderDate extends View {
+class RenderDateView extends View {
   _parentElement = document.querySelector(".info");
   _formattedDate = this._now
     .toLocaleDateString(navigator.language, {
@@ -21,4 +21,4 @@ class RenderDate extends View {
   }
 }
 
-export default new RenderDate();
+export default new RenderDateView();

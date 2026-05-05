@@ -1,6 +1,6 @@
 import View from "./view";
 
-class switchTheme extends View {
+class switchThemeView extends View {
   _body = document.querySelector("body");
   _parentElement = document.querySelector(".theme__switch");
   _lightBtn = document.querySelector(".theme__switch .light");
@@ -24,4 +24,4 @@ class switchTheme extends View {
   }
 }
 
-export default new switchTheme();
+export default new switchThemeView();

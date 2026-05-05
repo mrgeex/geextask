@@ -3,11 +3,11 @@ import * as model from "./model";
 import Tasks from "./views/tasks/tasks";
 import addNewTask from "./views/tasks/addNewTask";
 import taskActions from "./views/tasks/taskActions";
-import renderDate from "./views/renderDate";
-import switchTheme from "./views/switchTheme";
+import renderDate from "./views/renderDateView";
+import switchTheme from "./views/switchThemeView";
 import taskSlider from "./views/tasks/taskSlider";
 
-function toggleTheme(theme) {
+function controlToggleTheme(theme) {
   model.switchTheme(theme);
 }
 
@@ -49,7 +49,7 @@ function init() {
   Tasks.loadAppHandler(controlLoadApp);
   addNewTask.addNewTaskHandler(controlAddTasks);
   taskActions.taskActionsHandler(controlModifyTask);
-  switchTheme.switchThemeHandler(toggleTheme);
+  switchTheme.switchThemeHandler(controlToggleTheme);
   taskSlider.init();
   taskSlider.sliderButtonsHandler();
 }
