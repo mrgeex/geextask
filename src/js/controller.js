@@ -6,6 +6,7 @@ import taskActions from "./views/tasks/taskActions";
 import renderDate from "./views/renderDateView";
 import switchTheme from "./views/switchThemeView";
 import taskSlider from "./views/tasks/taskSlider";
+import navbarView from "./views/navbarView";
 
 function controlToggleTheme(theme) {
   model.switchTheme(theme);
@@ -52,5 +53,6 @@ function init() {
   switchTheme.switchThemeHandler(controlToggleTheme);
   taskSlider.init();
   taskSlider.sliderButtonsHandler();
+  navbarView.selectPageHandler();
 }
 init();
