@@ -153,7 +153,8 @@ export class Tasks extends View {
 
           const taskType = task.id.split("__").slice(0, 2).join("__");
 
-          return `<li class="todo__task flex" title="Created on ${formattedDate}" data-task-type="${taskType}">
+          return `<li class="todo__task flex" title="Created on ${formattedDate} ${taskType === "todo__routines" ? `\nRepeats ${task.cycleDate}` : ""}"
+          data-task-type="${taskType}">
 
           ${
             task.id.includes("countdown")

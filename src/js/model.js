@@ -57,8 +57,7 @@ export function setTaskDone(taskID) {
 
   if (
     taskType.includes("routine") &&
-    new Date(...getNowDate()).getTime() ===
-      new Date(...task.cycleDate).getTime()
+    new Date(...getNowDate()).getTime() >= new Date(...task.cycleDate).getTime()
   )
     task.cycleDate = getNewRoutineCycleDate(task.routineCycle);
 
@@ -85,8 +84,8 @@ export function editTask(taskID, taskContent, routineCycle, dueDate) {
 }
 
 function getNowDate() {
-  const time = new Date();
-  return [time.getFullYear(), time.getMonth(), time.getDate()];
+  const now = new Date();
+  return [now.getFullYear(), now.getMonth(), now.getDate()];
 }
 
 export function getNewRoutineCycleDate(routineCycle) {
@@ -108,11 +107,13 @@ export function resetAllTaskRepeatCycles() {
     const now = new Date(...getNowDate());
     const taskCycleDate = new Date(...taskData.cycleDate);
 
-    if (taskCycleDate.getTime() === now.getTime()) {
+    if (now.getTime() >= taskCycleDate.getTime()) {
       taskData.taskDone = false;
       taskData.cycleDate = getNewRoutineCycleDate(taskData.routineCycle);
       syncTasks();
     }
+
+    // taskData.cycleDate = taskCycleDate.getTime() > ;
   });
 }
 
