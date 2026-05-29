@@ -76,8 +76,10 @@ export function editTask(taskID, taskContent, routineCycle, dueDate) {
   const taskType = getTaskType(taskID);
   const task = state.tasks[taskType].find((t) => t.id === taskID);
   task.task = taskContent;
-  if (routineCycle) task.routineCycle = routineCycle;
-  if (routineCycle) task.cycleDate = getNewRoutineCycleDate(routineCycle);
+  if (routineCycle) {
+    task.routineCycle = routineCycle;
+    task.cycleDate = getNewRoutineCycleDate(routineCycle);
+  }
   if (dueDate) task.dueDate = dueDate;
   syncTasks();
 }
