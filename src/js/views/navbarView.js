@@ -1,34 +1,34 @@
 import View from "./view";
 
 class NavbarView extends View {
+  _navList = document.querySelector(".nav ul");
   constructor() {
     super();
     this._currentPage = this._getPageUrl();
-    if (!this._currentPage) return;
-    console.log(this._currentPage);
+    this.switchPage(this._currentPage);
   }
 
   _getPageUrl() {
-    return window.location.hash.slice(1);
+    const urlHash = window.location.hash;
+    const allPages = Array.from(this._navList.children).map((item) => item.id);
+    return allPages.includes(urlHash) ? urlHash : "#tasks";
   }
 
-  selectPageHandler() {
-    document.addEventListener("click", (event) => {
-      const clickedLink = event.target.closest("a[href]");
-      if (!clickedLink) return;
-      const navItem = clickedLink.parentElement;
-
-      const navList = navItem.parentElement;
-      Array.from(navList.children).map((item) => {
-        item.classList.remove("active__tab");
-      });
-      navItem.classList.add("active__tab");
-
-      console.log("clicked");
+  navHandler() {
+    this._navList.addEventListener("click", (event) => {
+      const target = event.target;
+      const selectedItem = target.closest(".nav ul li");
+      this.switchPage(selectedItem.id);
     });
   }
 
-  switchPage() {}
+  switchPage(selectedPage) {
+    const selectedItem = document.getElementById(selectedPage);
+    Array.from(this._navList.children).map((item) => {
+      item.classList.remove("active__tab");
+    });
+    selectedItem.classList.add("active__tab");
+  }
 }
 
 export default new NavbarView();

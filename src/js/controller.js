@@ -53,6 +53,6 @@ function init() {
   switchTheme.switchThemeHandler(controlToggleTheme);
   taskSlider.init();
   taskSlider.sliderButtonsHandler();
-  navbarView.selectPageHandler();
+  navbarView.navHandler();
 }
 init();

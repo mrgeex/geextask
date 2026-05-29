@@ -2,7 +2,7 @@ export default class View {
   _now = new Date();
   _parentElement = document.querySelector(".app");
   _data;
-  _currentPage = "tasks";
+  _currentPage;
   errorMessage;
 
   render(data) {

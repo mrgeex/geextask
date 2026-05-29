@@ -4,7 +4,7 @@ export const state = {
     todo__routines: [],
     todo__countdown: [],
   },
-  page: "tasks",
+  currentPage: "tasks",
   theme: "",
 };
 

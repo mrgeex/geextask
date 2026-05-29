@@ -352,6 +352,7 @@ header .theme__switch svg {
 .nav ul li {
   padding: 16px 24px;
   height: 100%;
+  cursor: pointer;
 }
 
 .nav ul li:first-child {
