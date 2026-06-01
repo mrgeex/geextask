@@ -11,7 +11,7 @@ class NavbarView extends View {
   _getPageUrl() {
     const urlHash = window.location.hash;
     const allPages = Array.from(this._navList.children).map((item) => item.id);
-    return allPages.includes(urlHash) ? urlHash : "#tasks";
+    return allPages.includes(urlHash) ? urlHash : allPages[0];
   }
 
   navHandler() {

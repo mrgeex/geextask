@@ -4,7 +4,7 @@ class addNewTask extends Tasks {
   addNewTaskHandler(handler) {
     document.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
-        const input = event.target.closest("input[type=text]");
+        const input = event.target.closest(".todo__input input[type=text]");
         if (!input) return;
 
         const parentElement = input.closest(".todo");
