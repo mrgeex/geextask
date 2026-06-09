@@ -1,0 +1,5 @@
+export const FIRST_TIMER_MINUTE = 50;
+export const FIRST_TIMER_BREAK_MINUTE = 10;
+
+export const SECOND_TIMER_MINUTE = 25;
+export const SECOND_TIMER_BREAK_MINUTE = 5;

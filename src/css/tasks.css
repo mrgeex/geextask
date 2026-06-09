@@ -1,0 +1,157 @@
+.tasks__slide--btn {
+  width: 100%;
+  gap: 16px;
+}
+
+.btn__left,
+.btn__right {
+  border: 1px solid var(--border);
+  cursor: pointer;
+
+  border-radius: 50px;
+  width: 44px;
+  padding: 8px;
+}
+
+.btn__left {
+}
+.btn__right {
+}
+
+.todo__title label {
+  display: block;
+  width: 100%;
+}
+
+.app__wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.app {
+  gap: 64px;
+  justify-content: space-between;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.todo {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 32.5%;
+  height: 75vh;
+  padding: 24px 32px 0;
+}
+
+.todo input[type="text"] {
+  background: inherit;
+  border: none;
+  border-radius: 10px;
+
+  padding: 12px;
+  width: 100%;
+}
+
+.todo__input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.todo__input input {
+  outline: none;
+}
+
+#todo__routines,
+#todo__countdown {
+  border-right: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.todo__routines__dropdown {
+  text-align: center;
+  flex-flow: column;
+  position: relative;
+}
+
+.todo__routines__dropdown:hover .options__list {
+  display: block;
+}
+
+.todo__routines__dropdown .selected,
+.dueDateBtn {
+  cursor: pointer;
+
+  width: max-content;
+  padding: 8px 16px;
+  height: max-content;
+  gap: 2px;
+}
+
+.todo__routines__dropdown svg {
+  width: 16px;
+}
+
+.todo__routines__dropdown .options__list {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  display: none;
+  position: absolute;
+  top: 100%;
+  z-index: 10;
+}
+
+.todo__routines__dropdown .option {
+  background: var(--primary);
+
+  padding: 8px 16px;
+  margin: 0;
+}
+
+.todo__routines__dropdown .option:hover {
+  background: var(--text);
+  color: var(--primary);
+}
+
+.todo__routines__dropdown .option:hover span,
+.todo__routines__dropdown .option:hover svg {
+  color: var(--primary);
+  stroke: var(--primary);
+}
+
+.todo__routines__dropdown .option:first-child {
+  border-radius: 10px 10px 0 0;
+  padding: 8px 12px;
+}
+
+.todo__routines__dropdown .option:last-child {
+  border-radius: 0 0 10px 10px;
+}
+
+.todo__inbox {
+}
+
+.todo__routines {
+}
+
+.todo__countdown .todo__task {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+#countdown__date {
+  background: inherit;
+  color: var(--text);
+  border: none;
+  outline: none;
+
+  padding: 8px 16px;
+}

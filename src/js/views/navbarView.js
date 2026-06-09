@@ -2,11 +2,6 @@ import View from "./view";
 
 class NavbarView extends View {
   _navList = document.querySelector(".nav ul");
-  constructor() {
-    super();
-    this._currentPage = this._getPageUrl();
-    this.switchPage(this._currentPage);
-  }
 
   _getPageUrl() {
     const urlHash = window.location.hash;
@@ -14,11 +9,18 @@ class NavbarView extends View {
     return allPages.includes(urlHash) ? urlHash : allPages[0];
   }
 
-  navHandler() {
+  navHandler(handler) {
     this._navList.addEventListener("click", (event) => {
       const target = event.target;
       const selectedItem = target.closest(".nav ul li");
-      this.switchPage(selectedItem.id);
+      this._currentPage = selectedItem.id;
+
+      handler(this._currentPage);
+    });
+
+    window.addEventListener("load", (event) => {
+      this._currentPage = this._getPageUrl();
+      handler(this._currentPage);
     });
   }
 

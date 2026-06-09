@@ -1,0 +1,54 @@
+.pomodoro {
+  position: relative;
+  text-align: center;
+  width: 100%;
+
+  display: grid;
+  gap: 116px;
+}
+
+.pomodoro .circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  z-index: -1;
+
+  width: 250px;
+  height: 250px;
+}
+
+.add__time,
+.sub__time {
+  width: 24px;
+  cursor: pointer;
+}
+
+.pomodoro .options {
+  gap: 16px;
+}
+
+.pomodoro .options button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 12px 16px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.pomodoro .timer {
+  font-size: 36px;
+}
+
+.pomodoro .control {
+  gap: 64px;
+}
+
+.pomodoro .control svg {
+  width: 44px;
+  cursor: pointer;
+}
+
+.ctrl__btns {
+  gap: 16px;
+}
