@@ -29,6 +29,7 @@ class PomodoroView extends View {
 
     const minutesEl = this._timerEl.querySelector(".minutes");
     const secondsEl = this._timerEl.querySelector(".seconds");
+    // console.log("view updated");
 
     this._setPomoTime(minutesEl, minutes);
     this._setPomoTime(secondsEl, seconds);

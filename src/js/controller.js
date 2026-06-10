@@ -17,6 +17,7 @@ import navbarView from "./views/navbarView";
 import tasks from "./views/tasks/tasks";
 import pomodoroView from "./views/pomo/pomodoroView";
 import musicPlayerView from "./views/music/musicPlayerView";
+import { pomodoroTimerStart, state } from "./model";
 
 function controlToggleTheme(theme) {
   model.switchTheme(theme);
@@ -62,14 +63,34 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
 function controlPomodoro(target) {
   // console.log(target.closest(".control"));
 
-  if (target.closest(".start__pomo") || target.closest(".pause__pomo"))
-    pomodoroView.toggleControls();
-
   if (target.closest(".firstOption"))
     pomodoroView.pomodoroSetTimer([FIRST_TIMER_MINUTE, 0]);
 
   if (target.closest(".secondOption"))
     pomodoroView.pomodoroSetTimer([SECOND_TIMER_MINUTE, 0]);
+
+  if (target.closest(".add__time")) console.log("add");
+  if (target.closest(".sub__time")) console.log("sub");
+
+  if (target.closest(".start__pomo") || target.closest(".pause__pomo"))
+    pomodoroView.toggleControls();
+
+  if (target.closest(".start__pomo")) {
+    model.setPomoTimer(FIRST_TIMER_MINUTE);
+    model.pomodoroTimerStart(true, () => {
+      pomodoroView.pomodoroSetTimer([
+        model.state.pomodoro.minutes,
+        model.state.pomodoro.seconds,
+      ]);
+    });
+  }
+  if (target.closest(".pause__pomo")) {
+    model.pomodoroTimerStart(false);
+  }
+
+  if (target.closest(".reset__pomo")) {
+    console.log("reset");
+  }
 }
 
 function init() {

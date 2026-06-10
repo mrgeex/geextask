@@ -4,6 +4,12 @@ export const state = {
     todo__routines: [],
     todo__countdown: [],
   },
+  pomodoro: {
+    timerID: null,
+    secondsLeft: 0,
+    minutes: 0,
+    seconds: 0,
+  },
   currentPage: "tasks",
   theme: "",
 };
@@ -112,9 +118,37 @@ export function resetAllTaskRepeatCycles() {
       taskData.cycleDate = getNewRoutineCycleDate(taskData.routineCycle);
       syncTasks();
     }
-
-    // taskData.cycleDate = taskCycleDate.getTime() > ;
   });
+}
+
+export function setPomoTimer(minutes) {
+  if (state.pomodoro.secondsLeft === 0)
+    state.pomodoro.secondsLeft = minutes * 60;
+}
+
+export function pomodoroTimerStart(start, updateView) {
+  if (start && state.pomodoro.timerID === null) {
+    // console.log("started", state.pomodoro.secondsLeft);
+    state.pomodoro.timerID = setInterval(() => {
+      if (state.pomodoro.secondsLeft > 0) {
+        --state.pomodoro.secondsLeft;
+        state.pomodoro.minutes = Math.floor(state.pomodoro.secondsLeft / 60);
+        state.pomodoro.seconds = state.pomodoro.secondsLeft % 60;
+        updateView();
+        // console.log(`${state.pomodoro.minutes}:${state.pomodoro.seconds}`);
+      } else {
+        clearInterval(state.pomodoro.timerID);
+        state.pomodoro.timerID = null;
+        // console.log("finished timer");
+      }
+    }, 1000);
+  }
+
+  if (!start) {
+    clearInterval(state.pomodoro.timerID);
+    state.pomodoro.timerID = null;
+    // console.log("stopped");
+  }
 }
 
 function init() {
@@ -123,5 +157,7 @@ function init() {
 
   const theme = localStorage.getItem("theme");
   if (theme) state.theme = JSON.parse(theme);
+
+  resetAllTaskRepeatCycles();
 }
 init();
