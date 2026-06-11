@@ -62,7 +62,8 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
 
 function controlPomodoro(target) {
   // console.log(target.closest(".control"));
-  let timeBlock = Math.floor(model.state.pomodoro.secondsLeft / 60);
+  let timeBlock = model.state.pomodoro.minutes;
+  const seconds = model.state.pomodoro.seconds;
 
   if (target.closest(".firstOption")) {
     timeBlock = FIRST_TIMER_MINUTE;
@@ -77,11 +78,10 @@ function controlPomodoro(target) {
   }
 
   if (target.closest(".sub__time")) {
-    timeBlock =
-      timeBlock > MODIFY_TIME_MINUTE
-        ? (timeBlock -= MODIFY_TIME_MINUTE)
-        : timeBlock;
-    console.log(timeBlock);
+    if (timeBlock > MODIFY_TIME_MINUTE) timeBlock -= MODIFY_TIME_MINUTE;
+    console.log(
+      `${timeBlock} and ${timeBlock > MODIFY_TIME_MINUTE} because ${timeBlock}, ${MODIFY_TIME_MINUTE}`,
+    );
   }
 
   if (
@@ -90,8 +90,8 @@ function controlPomodoro(target) {
     target.closest(".add__time") ||
     target.closest(".sub__time")
   ) {
-    model.state.pomodoro.secondsLeft = timeBlock * 60;
-    pomodoroView.pomodoroSetTimer([timeBlock, 0]);
+    model.state.pomodoro.secondsLeft = timeBlock * 60 + seconds;
+    pomodoroView.pomodoroSetTimer([timeBlock, seconds]);
   }
 
   if (target.closest(".start__pomo") || target.closest(".pause__pomo"))
