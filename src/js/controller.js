@@ -5,6 +5,7 @@ import {
   FIRST_TIMER_BREAK_MINUTE,
   SECOND_TIMER_MINUTE,
   SECOND_TIMER_BREAK_MINUTE,
+  MODIFY_TIME_MINUTE,
 } from "./config";
 
 import Tasks from "./views/tasks/tasks";
@@ -17,7 +18,6 @@ import navbarView from "./views/navbarView";
 import tasks from "./views/tasks/tasks";
 import pomodoroView from "./views/pomo/pomodoroView";
 import musicPlayerView from "./views/music/musicPlayerView";
-import { pomodoroTimerStart, state } from "./model";
 
 function controlToggleTheme(theme) {
   model.switchTheme(theme);
@@ -62,27 +62,48 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
 
 function controlPomodoro(target) {
   // console.log(target.closest(".control"));
+  let timeBlock = Math.floor(model.state.pomodoro.secondsLeft / 60);
 
-  if (target.closest(".firstOption"))
-    pomodoroView.pomodoroSetTimer([FIRST_TIMER_MINUTE, 0]);
+  if (target.closest(".firstOption")) {
+    timeBlock = FIRST_TIMER_MINUTE;
+  }
 
-  if (target.closest(".secondOption"))
-    pomodoroView.pomodoroSetTimer([SECOND_TIMER_MINUTE, 0]);
+  if (target.closest(".secondOption")) {
+    timeBlock = SECOND_TIMER_MINUTE;
+  }
 
-  if (target.closest(".add__time")) console.log("add");
-  if (target.closest(".sub__time")) console.log("sub");
+  if (target.closest(".add__time")) {
+    timeBlock += MODIFY_TIME_MINUTE;
+  }
+
+  if (target.closest(".sub__time")) {
+    timeBlock =
+      timeBlock > MODIFY_TIME_MINUTE
+        ? (timeBlock -= MODIFY_TIME_MINUTE)
+        : timeBlock;
+    console.log(timeBlock);
+  }
+
+  if (
+    target.closest(".firstOption") ||
+    target.closest(".secondOption") ||
+    target.closest(".add__time") ||
+    target.closest(".sub__time")
+  ) {
+    model.state.pomodoro.secondsLeft = timeBlock * 60;
+    pomodoroView.pomodoroSetTimer([timeBlock, 0]);
+  }
 
   if (target.closest(".start__pomo") || target.closest(".pause__pomo"))
     pomodoroView.toggleControls();
 
   if (target.closest(".start__pomo")) {
-    model.setPomoTimer(FIRST_TIMER_MINUTE);
-    model.pomodoroTimerStart(true, () => {
-      pomodoroView.pomodoroSetTimer([
-        model.state.pomodoro.minutes,
-        model.state.pomodoro.seconds,
-      ]);
-    });
+    // console.log("timeBlock is " + timeBlock);
+    model.setPomoTimer(timeBlock);
+    model.pomodoroTimerStart(
+      true,
+      pomodoroView.pomodoroSetTimer.bind(pomodoroView),
+    );
   }
   if (target.closest(".pause__pomo")) {
     model.pomodoroTimerStart(false);

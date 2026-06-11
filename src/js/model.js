@@ -6,7 +6,7 @@ export const state = {
   },
   pomodoro: {
     timerID: null,
-    secondsLeft: 0,
+    secondsLeft: 3000, // set to 3000 (50m) for test
     minutes: 0,
     seconds: 0,
   },
@@ -18,8 +18,6 @@ export function switchTheme(theme) {
   state.theme = theme;
   localStorage.setItem("theme", JSON.stringify(theme));
 }
-
-export function getTheme() {}
 
 export function saveTask(taskData) {
   const [task, taskType, routineCycle, dueDate] = taskData;
@@ -128,18 +126,19 @@ export function setPomoTimer(minutes) {
 
 export function pomodoroTimerStart(start, updateView) {
   if (start && state.pomodoro.timerID === null) {
-    // console.log("started", state.pomodoro.secondsLeft);
+    console.log("started", state.pomodoro.secondsLeft);
+
     state.pomodoro.timerID = setInterval(() => {
       if (state.pomodoro.secondsLeft > 0) {
         --state.pomodoro.secondsLeft;
         state.pomodoro.minutes = Math.floor(state.pomodoro.secondsLeft / 60);
         state.pomodoro.seconds = state.pomodoro.secondsLeft % 60;
-        updateView();
+        updateView([state.pomodoro.minutes, state.pomodoro.seconds]);
         // console.log(`${state.pomodoro.minutes}:${state.pomodoro.seconds}`);
       } else {
         clearInterval(state.pomodoro.timerID);
         state.pomodoro.timerID = null;
-        // console.log("finished timer");
+        console.log("finished timer");
       }
     }, 1000);
   }
@@ -147,7 +146,7 @@ export function pomodoroTimerStart(start, updateView) {
   if (!start) {
     clearInterval(state.pomodoro.timerID);
     state.pomodoro.timerID = null;
-    // console.log("stopped");
+    console.log("stopped");
   }
 }
 

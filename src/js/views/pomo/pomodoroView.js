@@ -4,6 +4,8 @@ class PomodoroView extends View {
   _pomo__parentEl;
   _timerEl;
   _controlsEl;
+  _minutesEl;
+  _secondsEl;
 
   pomodoroHandler(handler) {
     document.addEventListener("click", (event) => {
@@ -12,6 +14,8 @@ class PomodoroView extends View {
       if (!this._pomo__parentEl) return;
 
       this._timerEl = this._pomo__parentEl.querySelector(".timer");
+      this._minutesEl = this._timerEl.querySelector(".minutes");
+      this._secondsEl = this._timerEl.querySelector(".seconds");
 
       this._controlsEl = this._pomo__parentEl.querySelector(".control");
 
@@ -19,20 +23,12 @@ class PomodoroView extends View {
     });
   }
 
-  _setPomoTime(element, time) {
-    element.textContent = String(time).padStart(2, "0");
-  }
-
   pomodoroSetTimer(time) {
-    let minutes, seconds;
-    [minutes, seconds] = time;
-
-    const minutesEl = this._timerEl.querySelector(".minutes");
-    const secondsEl = this._timerEl.querySelector(".seconds");
+    let [minutes, seconds] = time;
     // console.log("view updated");
 
-    this._setPomoTime(minutesEl, minutes);
-    this._setPomoTime(secondsEl, seconds);
+    this._minutesEl.textContent = String(minutes).padStart(2, "0");
+    this._secondsEl.textContent = String(seconds).padStart(2, "0");
   }
 
   toggleControls() {
