@@ -62,25 +62,27 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
 
 function controlPomodoro(target) {
   // console.log(target.closest(".control"));
-  let timeBlock = model.state.pomodoro.minutes;
-  const seconds = model.state.pomodoro.seconds;
+  let minutesLeft = model.state.pomodoro.minutes;
+  let secondsLeft = model.state.pomodoro.seconds;
 
   if (target.closest(".firstOption")) {
-    timeBlock = FIRST_TIMER_MINUTE;
+    minutesLeft = FIRST_TIMER_MINUTE;
+    secondsLeft = 0;
   }
 
   if (target.closest(".secondOption")) {
-    timeBlock = SECOND_TIMER_MINUTE;
+    minutesLeft = SECOND_TIMER_MINUTE;
+    secondsLeft = 0;
   }
 
   if (target.closest(".add__time")) {
-    timeBlock += MODIFY_TIME_MINUTE;
+    minutesLeft += MODIFY_TIME_MINUTE;
   }
 
   if (target.closest(".sub__time")) {
-    if (timeBlock > MODIFY_TIME_MINUTE) timeBlock -= MODIFY_TIME_MINUTE;
+    if (minutesLeft > MODIFY_TIME_MINUTE) minutesLeft -= MODIFY_TIME_MINUTE;
     console.log(
-      `${timeBlock} and ${timeBlock > MODIFY_TIME_MINUTE} because ${timeBlock}, ${MODIFY_TIME_MINUTE}`,
+      `${minutesLeft} and ${minutesLeft > MODIFY_TIME_MINUTE} because ${minutesLeft}, ${MODIFY_TIME_MINUTE}`,
     );
   }
 
@@ -90,16 +92,16 @@ function controlPomodoro(target) {
     target.closest(".add__time") ||
     target.closest(".sub__time")
   ) {
-    model.state.pomodoro.secondsLeft = timeBlock * 60 + seconds;
-    pomodoroView.pomodoroSetTimer([timeBlock, seconds]);
+    model.state.pomodoro.secondsLeft = minutesLeft * 60 + secondsLeft;
+    pomodoroView.pomodoroSetTimer([minutesLeft, secondsLeft]);
   }
 
   if (target.closest(".start__pomo") || target.closest(".pause__pomo"))
     pomodoroView.toggleControls();
 
   if (target.closest(".start__pomo")) {
-    // console.log("timeBlock is " + timeBlock);
-    model.setPomoTimer(timeBlock);
+    // console.log("minutesLeft is " + minutesLeft);
+    model.setPomoTimer(minutesLeft);
     model.pomodoroTimerStart(
       true,
       pomodoroView.pomodoroSetTimer.bind(pomodoroView),
