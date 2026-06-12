@@ -6,8 +6,9 @@ export const state = {
   },
   pomodoro: {
     timerID: null,
+    timeBlockSelected: 50,
     secondsLeft: 3000, // set to 3000 (50m) for test
-    minutes: 50,
+    minutes: 0,
     seconds: 0,
   },
   currentPage: "tasks",

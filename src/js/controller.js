@@ -61,30 +61,11 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
 }
 
 function controlPomodoro(target) {
-  // console.log(target.closest(".control"));
   let minutesLeft = model.state.pomodoro.minutes;
   let secondsLeft = model.state.pomodoro.seconds;
-
-  if (target.closest(".firstOption")) {
-    minutesLeft = FIRST_TIMER_MINUTE;
-    secondsLeft = 0;
-  }
-
-  if (target.closest(".secondOption")) {
-    minutesLeft = SECOND_TIMER_MINUTE;
-    secondsLeft = 0;
-  }
-
-  if (target.closest(".add__time")) {
-    minutesLeft += MODIFY_TIME_MINUTE;
-  }
-
-  if (target.closest(".sub__time")) {
-    if (minutesLeft > MODIFY_TIME_MINUTE) minutesLeft -= MODIFY_TIME_MINUTE;
-    console.log(
-      `${minutesLeft} and ${minutesLeft > MODIFY_TIME_MINUTE} because ${minutesLeft}, ${MODIFY_TIME_MINUTE}`,
-    );
-  }
+  let timeBlockSelected = model.state.pomodoro.timeBlockSelected;
+  if (!minutesLeft) minutesLeft = timeBlockSelected;
+  // console.log(minutesLeft, secondsLeft, timeBlockSelected);
 
   if (
     target.closest(".firstOption") ||
@@ -92,6 +73,11 @@ function controlPomodoro(target) {
     target.closest(".add__time") ||
     target.closest(".sub__time")
   ) {
+    [minutesLeft, secondsLeft] = controlUpdatePomodoro(
+      target,
+      minutesLeft,
+      secondsLeft,
+    );
     model.state.pomodoro.secondsLeft = minutesLeft * 60 + secondsLeft;
     pomodoroView.pomodoroSetTimer([minutesLeft, secondsLeft]);
   }
@@ -114,6 +100,27 @@ function controlPomodoro(target) {
   if (target.closest(".reset__pomo")) {
     console.log("reset");
   }
+}
+
+function controlUpdatePomodoro(target, minutesLeft, secondsLeft) {
+  if (target.closest(".firstOption")) {
+    minutesLeft = FIRST_TIMER_MINUTE;
+    model.state.pomodoro.timeBlockSelected = FIRST_TIMER_MINUTE;
+    secondsLeft = 0;
+  }
+
+  if (target.closest(".secondOption")) {
+    minutesLeft = SECOND_TIMER_MINUTE;
+    model.state.pomodoro.timeBlockSelected = SECOND_TIMER_MINUTE;
+    secondsLeft = 0;
+  }
+
+  if (target.closest(".add__time")) minutesLeft += MODIFY_TIME_MINUTE;
+
+  if (target.closest(".sub__time"))
+    if (minutesLeft > MODIFY_TIME_MINUTE) minutesLeft -= MODIFY_TIME_MINUTE;
+
+  return [minutesLeft, secondsLeft];
 }
 
 function init() {
