@@ -1,4 +1,10 @@
 import View from "../view";
+import {
+  FIRST_TIMER_BREAK_MINUTE,
+  FIRST_TIMER_MINUTE,
+  SECOND_TIMER_BREAK_MINUTE,
+  SECOND_TIMER_MINUTE,
+} from "../../config";
 
 class PomodoroView extends View {
   _pomo__parentEl;
@@ -43,8 +49,8 @@ class PomodoroView extends View {
     return `
           <div class="pomodoro">
             <div class="options flex">
-              <button class="firstOption">50/10</button>
-              <button class="secondOption">25/5</button>
+              <button class="firstOption">${FIRST_TIMER_MINUTE}/${FIRST_TIMER_BREAK_MINUTE}</button>
+              <button class="secondOption">${SECOND_TIMER_MINUTE}/${SECOND_TIMER_BREAK_MINUTE}</button>
             </div>
             <div class="timer flex">
               <div class="circle"></div>
@@ -64,7 +70,7 @@ class PomodoroView extends View {
                 />
               </svg>
               <span>
-                <span class="minutes">50</span> :
+                <span class="minutes">${FIRST_TIMER_MINUTE}</span> :
                 <span class="seconds">00</span>
               </span>
               <svg
