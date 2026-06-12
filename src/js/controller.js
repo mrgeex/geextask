@@ -98,7 +98,8 @@ function controlPomodoro(target) {
   }
 
   if (target.closest(".reset__pomo")) {
-    console.log("reset");
+    model.state.pomodoro.secondsLeft = timeBlockSelected * 60;
+    pomodoroView.pomodoroSetTimer([timeBlockSelected, 0]);
   }
 }
 
