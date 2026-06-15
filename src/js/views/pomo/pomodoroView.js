@@ -40,9 +40,11 @@ class PomodoroView extends View {
   toggleControls() {
     const startBtn = this._controlsEl.querySelector(".start__pomo");
     const pauseBtn = this._controlsEl.querySelector(".pause__pomo");
+    const resetBtn = this._controlsEl.querySelector(".reset__pomo");
 
     startBtn.classList.toggle("hidden");
     pauseBtn.classList.toggle("hidden");
+    resetBtn.classList.toggle("hidden");
   }
 
   _generateMarkup() {
@@ -115,7 +117,7 @@ class PomodoroView extends View {
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="reset__pomo"
+                  class="reset__pomo hidden"
                   viewBox="0 0 512 512"
                 >
                   <path
