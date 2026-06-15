@@ -8,8 +8,8 @@ export const state = {
     timerID: null,
     timeBlockSelected: 50,
     secondsLeft: 3000, // set to 3000 (50m) for test
-    minutes: 0,
-    seconds: 0,
+    _minutes: 0,
+    _seconds: 0,
   },
   currentPage: "tasks",
   theme: "",
@@ -132,10 +132,10 @@ export function pomodoroTimerStart(start, updateView) {
     state.pomodoro.timerID = setInterval(() => {
       if (state.pomodoro.secondsLeft > 0) {
         --state.pomodoro.secondsLeft;
-        state.pomodoro.minutes = Math.floor(state.pomodoro.secondsLeft / 60);
-        state.pomodoro.seconds = state.pomodoro.secondsLeft % 60;
-        updateView([state.pomodoro.minutes, state.pomodoro.seconds]);
-        // console.log(`${state.pomodoro.minutes}:${state.pomodoro.seconds}`);
+        state.pomodoro._minutes = Math.floor(state.pomodoro.secondsLeft / 60);
+        state.pomodoro._seconds = state.pomodoro.secondsLeft % 60;
+        updateView([state.pomodoro._minutes, state.pomodoro._seconds]);
+        // console.log(`${state.pomodoro._minutes}:${state.pomodoro._seconds}`);
       } else {
         clearInterval(state.pomodoro.timerID);
         state.pomodoro.timerID = null;

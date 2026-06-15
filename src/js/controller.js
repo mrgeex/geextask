@@ -61,10 +61,11 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
 }
 
 function controlPomodoro(target) {
-  let minutesLeft = model.state.pomodoro.minutes;
-  let secondsLeft = model.state.pomodoro.seconds;
   let timeBlockSelected = model.state.pomodoro.timeBlockSelected;
-  if (!minutesLeft) minutesLeft = timeBlockSelected;
+  let minutesLeft = model.state.pomodoro.secondsLeft
+    ? Math.floor(model.state.pomodoro.secondsLeft / 60)
+    : timeBlockSelected;
+  let secondsLeft = model.state.pomodoro.secondsLeft % 60;
   // console.log(minutesLeft, secondsLeft, timeBlockSelected);
 
   if (
