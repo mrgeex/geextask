@@ -61,12 +61,14 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
 }
 
 function controlPomodoro(target) {
-  let timeBlockSelected = model.state.pomodoro.timeBlockSelected;
+  let focusTimeSelected = model.state.pomodoro.focus_minutes;
+  let breakTimeSelected = model.state.pomodoro.break_minutes;
+
   let minutesLeft = model.state.pomodoro.secondsLeft
     ? Math.floor(model.state.pomodoro.secondsLeft / 60)
-    : timeBlockSelected;
+    : focusTimeSelected;
   let secondsLeft = model.state.pomodoro.secondsLeft % 60;
-  // console.log(minutesLeft, secondsLeft, timeBlockSelected);
+  // console.log(minutesLeft, secondsLeft, focusTimeSelected);
 
   if (
     target.closest(".firstOption") ||
@@ -89,31 +91,30 @@ function controlPomodoro(target) {
   if (target.closest(".start__pomo")) {
     // console.log("minutesLeft is " + minutesLeft);
     model.setPomoTimer(minutesLeft);
-    model.pomodoroTimerStart(
-      true,
-      pomodoroView.pomodoroSetTimer.bind(pomodoroView),
-    );
+    model.pomodoroTimerStart(pomodoroView.pomodoroSetTimer.bind(pomodoroView));
   }
   if (target.closest(".pause__pomo")) {
-    model.pomodoroTimerStart(false);
+    model.pomodoroTimerStop();
   }
 
   if (target.closest(".reset__pomo")) {
-    model.state.pomodoro.secondsLeft = timeBlockSelected * 60;
-    pomodoroView.pomodoroSetTimer([timeBlockSelected, 0]);
+    model.state.pomodoro.secondsLeft = focusTimeSelected * 60;
+    pomodoroView.pomodoroSetTimer([focusTimeSelected, 0]);
   }
 }
 
 function controlUpdatePomodoro(target, minutesLeft, secondsLeft) {
   if (target.closest(".firstOption")) {
     minutesLeft = FIRST_TIMER_MINUTE;
-    model.state.pomodoro.timeBlockSelected = FIRST_TIMER_MINUTE;
+    model.state.pomodoro.focus_minutes = FIRST_TIMER_MINUTE;
+    model.state.pomodoro.break_minutes = FIRST_TIMER_BREAK_MINUTE;
     secondsLeft = 0;
   }
 
   if (target.closest(".secondOption")) {
     minutesLeft = SECOND_TIMER_MINUTE;
-    model.state.pomodoro.timeBlockSelected = SECOND_TIMER_MINUTE;
+    model.state.pomodoro.focus_minutes = SECOND_TIMER_MINUTE;
+    model.state.pomodoro.break_minutes = SECOND_TIMER_BREAK_MINUTE;
     secondsLeft = 0;
   }
 

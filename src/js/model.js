@@ -1,3 +1,5 @@
+import { FIRST_TIMER_BREAK_MINUTE, FIRST_TIMER_MINUTE } from "./config";
+
 export const state = {
   tasks: {
     todo__inbox: [],
@@ -6,7 +8,10 @@ export const state = {
   },
   pomodoro: {
     timerID: null,
-    timeBlockSelected: 50,
+    focused: true,
+    focus_minutes: FIRST_TIMER_MINUTE,
+    break_minutes: FIRST_TIMER_BREAK_MINUTE,
+
     secondsLeft: 3000, // set to 3000 (50m) for test
     _minutes: 0,
     _seconds: 0,
@@ -120,14 +125,26 @@ export function resetAllTaskRepeatCycles() {
   });
 }
 
+export function togglePomoFocus() {
+  state.pomodoro.focused = !state.pomodoro.focused;
+  if (state.pomodoro.focused) {
+    state.pomodoro.secondsLeft = state.pomodoro.focus_minutes * 60;
+    state.pomodoro._minutes = state.pomodoro.focus_minutes;
+  } else {
+    state.pomodoro.secondsLeft = state.pomodoro.break_minutes * 60;
+    state.pomodoro._minutes = state.pomodoro.break_minutes;
+  }
+  this.pomodoroTimerStop();
+}
+
 export function setPomoTimer(minutes) {
   if (state.pomodoro.secondsLeft === 0)
     state.pomodoro.secondsLeft = minutes * 60;
 }
 
-export function pomodoroTimerStart(start, updateView) {
-  if (start && state.pomodoro.timerID === null) {
-    console.log("started", state.pomodoro.secondsLeft);
+export function pomodoroTimerStart(updateView) {
+  if (state.pomodoro.timerID === null) {
+    // console.log("started", state.pomodoro.secondsLeft);
 
     state.pomodoro.timerID = setInterval(() => {
       if (state.pomodoro.secondsLeft > 0) {
@@ -135,20 +152,19 @@ export function pomodoroTimerStart(start, updateView) {
         state.pomodoro._minutes = Math.floor(state.pomodoro.secondsLeft / 60);
         state.pomodoro._seconds = state.pomodoro.secondsLeft % 60;
         updateView([state.pomodoro._minutes, state.pomodoro._seconds]);
-        // console.log(`${state.pomodoro._minutes}:${state.pomodoro._seconds}`);
-      } else {
-        clearInterval(state.pomodoro.timerID);
-        state.pomodoro.timerID = null;
-        console.log("finished timer");
-      }
+      } else this.togglePomoFocus();
+
+      if (!state.pomodoro.focused)
+        updateView([state.pomodoro._minutes, state.pomodoro._seconds]);
+      // console.log(`${state.pomodoro._minutes}:${state.pomodoro._seconds}`);
     }, 1000);
   }
+}
 
-  if (!start) {
-    clearInterval(state.pomodoro.timerID);
-    state.pomodoro.timerID = null;
-    console.log("stopped");
-  }
+export function pomodoroTimerStop() {
+  clearInterval(state.pomodoro.timerID);
+  state.pomodoro.timerID = null;
+  // console.log("stopped");
 }
 
 function init() {

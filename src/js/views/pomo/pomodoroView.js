@@ -35,6 +35,8 @@ class PomodoroView extends View {
 
     this._minutesEl.textContent = String(minutes).padStart(2, "0");
     this._secondsEl.textContent = String(seconds).padStart(2, "0");
+
+    if (!minutes && !seconds) this.toggleControls();
   }
 
   toggleControls() {
