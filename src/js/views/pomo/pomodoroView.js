@@ -13,7 +13,7 @@ class PomodoroView extends View {
   _minutesEl;
   _secondsEl;
 
-  loadHandler(time) {
+  pomodoroHandler(time, handler) {
     window.addEventListener("load", (event) => {
       const target = event.target;
 
@@ -27,11 +27,9 @@ class PomodoroView extends View {
       this._secondsEl = this._timerEl.querySelector(".seconds");
 
       this.pomodoroSetTimer(time);
-    });
-  }
 
-  clickHandler(handler) {
-    document.addEventListener("click", handler);
+      this._pomo__parentEl.addEventListener("click", handler);
+    });
   }
 
   pomodoroSetTimer(time) {

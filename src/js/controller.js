@@ -133,7 +133,6 @@ function init() {
   taskActions.taskActionsHandler(controlModifyTask);
   taskSlider.init();
   taskSlider.sliderButtonsHandler();
-  pomodoroView.loadHandler(model.getPomodoro());
-  pomodoroView.clickHandler(controlPomodoro);
+  pomodoroView.pomodoroHandler(model.getPomodoro(), controlPomodoro);
 }
 init();
