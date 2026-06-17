@@ -1,9 +1,9 @@
 import * as model from "./model";
 
 import {
-  FIRST_TIMER_MINUTE,
+  FIRST_TIMER_FOCUS_MINUTE,
   FIRST_TIMER_BREAK_MINUTE,
-  SECOND_TIMER_MINUTE,
+  SECOND_TIMER_FOCUS_MINUTE,
   SECOND_TIMER_BREAK_MINUTE,
   MODIFY_TIME_MINUTE,
 } from "./config";
@@ -60,7 +60,8 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
     model.editTask(taskID, taskContent, undefined, dueDate);
 }
 
-function controlPomodoro(target) {
+function controlPomodoro(event) {
+  const target = event.target;
   let focusTimeSelected = model.state.pomodoro.focus_minutes;
   let breakTimeSelected = model.state.pomodoro.break_minutes;
 
@@ -105,17 +106,15 @@ function controlPomodoro(target) {
 
 function controlUpdatePomodoro(target, minutesLeft, secondsLeft) {
   if (target.closest(".firstOption")) {
-    minutesLeft = FIRST_TIMER_MINUTE;
-    model.state.pomodoro.focus_minutes = FIRST_TIMER_MINUTE;
-    model.state.pomodoro.break_minutes = FIRST_TIMER_BREAK_MINUTE;
+    minutesLeft = FIRST_TIMER_FOCUS_MINUTE;
     secondsLeft = 0;
+    model.setPomodoro(FIRST_TIMER_FOCUS_MINUTE, FIRST_TIMER_BREAK_MINUTE);
   }
 
   if (target.closest(".secondOption")) {
-    minutesLeft = SECOND_TIMER_MINUTE;
-    model.state.pomodoro.focus_minutes = SECOND_TIMER_MINUTE;
-    model.state.pomodoro.break_minutes = SECOND_TIMER_BREAK_MINUTE;
+    minutesLeft = SECOND_TIMER_FOCUS_MINUTE;
     secondsLeft = 0;
+    model.setPomodoro(SECOND_TIMER_FOCUS_MINUTE, SECOND_TIMER_BREAK_MINUTE);
   }
 
   if (target.closest(".add__time")) minutesLeft += MODIFY_TIME_MINUTE;
@@ -134,6 +133,7 @@ function init() {
   taskActions.taskActionsHandler(controlModifyTask);
   taskSlider.init();
   taskSlider.sliderButtonsHandler();
-  pomodoroView.pomodoroHandler(controlPomodoro);
+  pomodoroView.loadHandler(model.getPomodoro());
+  pomodoroView.clickHandler(controlPomodoro);
 }
 init();

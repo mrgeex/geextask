@@ -1,9 +1,9 @@
 import View from "../view";
 import {
+  FIRST_TIMER_FOCUS_MINUTE,
   FIRST_TIMER_BREAK_MINUTE,
-  FIRST_TIMER_MINUTE,
+  SECOND_TIMER_FOCUS_MINUTE,
   SECOND_TIMER_BREAK_MINUTE,
-  SECOND_TIMER_MINUTE,
 } from "../../config";
 
 class PomodoroView extends View {
@@ -13,20 +13,25 @@ class PomodoroView extends View {
   _minutesEl;
   _secondsEl;
 
-  pomodoroHandler(handler) {
-    document.addEventListener("click", (event) => {
+  loadHandler(time) {
+    window.addEventListener("load", (event) => {
       const target = event.target;
-      this._pomo__parentEl = target.closest(".pomodoro");
+
+      this._pomo__parentEl = target.querySelector(".pomodoro");
       if (!this._pomo__parentEl) return;
 
       this._timerEl = this._pomo__parentEl.querySelector(".timer");
+      this._controlsEl = this._pomo__parentEl.querySelector(".control");
+
       this._minutesEl = this._timerEl.querySelector(".minutes");
       this._secondsEl = this._timerEl.querySelector(".seconds");
 
-      this._controlsEl = this._pomo__parentEl.querySelector(".control");
-
-      handler(target);
+      this.pomodoroSetTimer(time);
     });
+  }
+
+  clickHandler(handler) {
+    document.addEventListener("click", handler);
   }
 
   pomodoroSetTimer(time) {
@@ -53,8 +58,8 @@ class PomodoroView extends View {
     return `
           <div class="pomodoro">
             <div class="options flex">
-              <button class="firstOption">${FIRST_TIMER_MINUTE}/${FIRST_TIMER_BREAK_MINUTE}</button>
-              <button class="secondOption">${SECOND_TIMER_MINUTE}/${SECOND_TIMER_BREAK_MINUTE}</button>
+              <button class="firstOption">${FIRST_TIMER_FOCUS_MINUTE}/${FIRST_TIMER_BREAK_MINUTE}</button>
+              <button class="secondOption">${SECOND_TIMER_FOCUS_MINUTE}/${SECOND_TIMER_BREAK_MINUTE}</button>
             </div>
             <div class="timer flex">
               <div class="circle"></div>
@@ -74,7 +79,7 @@ class PomodoroView extends View {
                 />
               </svg>
               <span>
-                <span class="minutes">${FIRST_TIMER_MINUTE}</span> :
+                <span class="minutes">${FIRST_TIMER_FOCUS_MINUTE}</span> :
                 <span class="seconds">00</span>
               </span>
               <svg
