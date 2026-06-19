@@ -20,22 +20,32 @@ class PomodoroView extends View {
       this._pomo__parentEl = target.querySelector(".pomodoro");
       if (!this._pomo__parentEl) return;
 
-      this._timerEl = this._pomo__parentEl.querySelector(".timer");
-      this._controlsEl = this._pomo__parentEl.querySelector(".control");
-
-      this._minutesEl = this._timerEl.querySelector(".minutes");
-      this._secondsEl = this._timerEl.querySelector(".seconds");
-
       this.pomodoroSetTimer(time);
-
-      this._pomo__parentEl.addEventListener("click", handler);
+      // if (time[0] && time[1]) this.toggleControls();
+    });
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      this._pomo__parentEl = target.closest(".pomodoro");
+      if (!this._pomo__parentEl) return;
+      handler(target);
     });
   }
 
+  pomodoroSelectParent() {
+    if (!this._pomo__parentEl)
+      this._pomo__parentEl = document.querySelector(".pomodoro");
+    return this._pomo__parentEl;
+  }
+
   pomodoroSetTimer(time) {
-    let [minutes, seconds] = time;
+    this._data = time;
+    let [minutes, seconds] = this._data;
     // console.log("view updated");
 
+    this.pomodoroSelectParent();
+    this._timerEl = this._pomo__parentEl.querySelector(".timer");
+    this._minutesEl = this._timerEl.querySelector(".minutes");
+    this._secondsEl = this._timerEl.querySelector(".seconds");
     this._minutesEl.textContent = String(minutes).padStart(2, "0");
     this._secondsEl.textContent = String(seconds).padStart(2, "0");
 
@@ -43,6 +53,8 @@ class PomodoroView extends View {
   }
 
   toggleControls() {
+    this.pomodoroSelectParent();
+    this._controlsEl = this._pomo__parentEl.querySelector(".control");
     const startBtn = this._controlsEl.querySelector(".start__pomo");
     const pauseBtn = this._controlsEl.querySelector(".pause__pomo");
     const resetBtn = this._controlsEl.querySelector(".reset__pomo");
@@ -56,8 +68,8 @@ class PomodoroView extends View {
     return `
           <div class="pomodoro">
             <div class="options flex">
-              <button class="firstOption">${FIRST_TIMER_FOCUS_MINUTE}/${FIRST_TIMER_BREAK_MINUTE}</button>
-              <button class="secondOption">${SECOND_TIMER_FOCUS_MINUTE}/${SECOND_TIMER_BREAK_MINUTE}</button>
+              <button class="firstOption">${String(FIRST_TIMER_FOCUS_MINUTE)}/${String(FIRST_TIMER_BREAK_MINUTE)}</button>
+              <button class="secondOption">${String(SECOND_TIMER_FOCUS_MINUTE)}/${String(SECOND_TIMER_BREAK_MINUTE)}</button>
             </div>
             <div class="timer flex">
               <div class="circle"></div>
@@ -77,8 +89,8 @@ class PomodoroView extends View {
                 />
               </svg>
               <span>
-                <span class="minutes">${FIRST_TIMER_FOCUS_MINUTE}</span> :
-                <span class="seconds">00</span>
+                <span class="minutes">${String(this._data[0]).padStart(2, "0")}</span> :
+                <span class="seconds">${String(this._data[1]).padStart(2, "0")}</span>
               </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

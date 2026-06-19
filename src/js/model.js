@@ -9,12 +9,14 @@ export const state = {
   pomodoro: {
     timerID: null,
     focused: true,
+    isRunning: false,
     focus_minutes: 0,
     break_minutes: 0,
 
     secondsLeft: 0,
     _minutes: 0,
     _seconds: 0,
+    endTime: null,
   },
   currentPage: "tasks",
   theme: "",
@@ -154,6 +156,7 @@ export function togglePomoFocus() {
     state.pomodoro._minutes = state.pomodoro.break_minutes;
   }
   this.pomodoroTimerStop();
+  syncPomodoro();
 }
 
 export function setPomoTimer(minutes) {
@@ -165,6 +168,7 @@ export function pomodoroTimerStart(updateView) {
   if (state.pomodoro.timerID === null) {
     // console.log("started", state.pomodoro.secondsLeft);
 
+    state.pomodoro.isRunning = true;
     state.pomodoro.timerID = setInterval(() => {
       if (state.pomodoro.secondsLeft > 0) {
         --state.pomodoro.secondsLeft;
@@ -185,6 +189,16 @@ export function pomodoroTimerStop() {
   // console.log("stopped");
 }
 
+export function pomodoroResume() {
+  const endTime = state.pomodoro.endTime;
+  return endTime - Date.now() > 0 && state.pomodoro.isRunning;
+}
+
+export function pomodoroSetNewEndTime() {
+  state.pomodoro.endTime = Date.now() + state.pomodoro.secondsLeft * 1000;
+  syncPomodoro();
+}
+
 function init() {
   const tasks = localStorage.getItem("tasks");
   if (tasks) state.tasks = JSON.parse(tasks);
@@ -195,7 +209,14 @@ function init() {
   const pomodoro = localStorage.getItem("pomodoro");
   if (pomodoro) {
     state.pomodoro = JSON.parse(pomodoro);
+
     state.pomodoro.timerID = null;
+    if (state.pomodoro.endTime - Date.now() <= 0)
+      setPomodoro(FIRST_TIMER_FOCUS_MINUTE, FIRST_TIMER_BREAK_MINUTE);
+    if (state.pomodoro.endTime - Date.now() > 0)
+      state.pomodoro.secondsLeft = Math.floor(
+        (state.pomodoro.endTime - Date.now()) / 1000,
+      );
   }
   if (!state.pomodoro.secondsLeft)
     setPomodoro(FIRST_TIMER_FOCUS_MINUTE, FIRST_TIMER_BREAK_MINUTE);

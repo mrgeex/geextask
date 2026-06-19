@@ -24,14 +24,23 @@ function controlToggleTheme(theme) {
 }
 
 function controlSwitchPage(pageID) {
+  model.state.currentPage = pageID;
+
   if (model.state.theme === "light") switchTheme.toggleTheme();
-  navbarView.switchPage(pageID);
+  navbarView.switchPage(model.state.currentPage);
 
-  if (pageID === "#tasks") tasks.render(model.getTasks());
-
-  if (pageID === "#pomodoro") pomodoroView.render(1);
-
-  if (pageID === "#music") musicPlayerView.render(1);
+  if (model.state.currentPage === "#tasks") tasks.render(model.getTasks());
+  if (model.state.currentPage === "#pomodoro") {
+    pomodoroView.render(model.getPomodoro());
+    if (model.pomodoroResume()) {
+      model.state.pomodoro.timerID = null;
+      model.pomodoroTimerStart(
+        pomodoroView.pomodoroSetTimer.bind(pomodoroView),
+      );
+      pomodoroView.toggleControls();
+    }
+  } else model.pomodoroTimerStop();
+  if (model.state.currentPage === "#music") musicPlayerView.render(1);
 }
 
 function controlAddTasks(...taskData) {
@@ -60,8 +69,7 @@ function controlModifyTask(status, taskID, taskContent, routineCycle, dueDate) {
     model.editTask(taskID, taskContent, undefined, dueDate);
 }
 
-function controlPomodoro(event) {
-  const target = event.target;
+function controlPomodoro(target) {
   let focusTimeSelected = model.state.pomodoro.focus_minutes;
   let breakTimeSelected = model.state.pomodoro.break_minutes;
 
@@ -84,6 +92,7 @@ function controlPomodoro(event) {
     );
     model.state.pomodoro.secondsLeft = minutesLeft * 60 + secondsLeft;
     pomodoroView.pomodoroSetTimer([minutesLeft, secondsLeft]);
+    model.pomodoroSetNewEndTime();
   }
 
   if (target.closest(".start__pomo") || target.closest(".pause__pomo"))
@@ -91,16 +100,20 @@ function controlPomodoro(event) {
 
   if (target.closest(".start__pomo")) {
     // console.log("minutesLeft is " + minutesLeft);
+    console.log("clicked");
     model.setPomoTimer(minutesLeft);
     model.pomodoroTimerStart(pomodoroView.pomodoroSetTimer.bind(pomodoroView));
   }
   if (target.closest(".pause__pomo")) {
     model.pomodoroTimerStop();
+    model.state.pomodoro.isRunning = false;
+    model.pomodoroSetNewEndTime();
   }
 
   if (target.closest(".reset__pomo")) {
     model.state.pomodoro.secondsLeft = focusTimeSelected * 60;
     pomodoroView.pomodoroSetTimer([focusTimeSelected, 0]);
+    model.pomodoroSetNewEndTime();
   }
 }
 
@@ -109,12 +122,18 @@ function controlUpdatePomodoro(target, minutesLeft, secondsLeft) {
     minutesLeft = FIRST_TIMER_FOCUS_MINUTE;
     secondsLeft = 0;
     model.setPomodoro(FIRST_TIMER_FOCUS_MINUTE, FIRST_TIMER_BREAK_MINUTE);
+    model.pomodoroTimerStop();
+    model.state.pomodoro.isRunning = false;
+    pomodoroView.toggleControls();
   }
 
   if (target.closest(".secondOption")) {
     minutesLeft = SECOND_TIMER_FOCUS_MINUTE;
     secondsLeft = 0;
     model.setPomodoro(SECOND_TIMER_FOCUS_MINUTE, SECOND_TIMER_BREAK_MINUTE);
+    model.pomodoroTimerStop();
+    model.state.pomodoro.isRunning = false;
+    pomodoroView.toggleControls();
   }
 
   if (target.closest(".add__time")) minutesLeft += MODIFY_TIME_MINUTE;
